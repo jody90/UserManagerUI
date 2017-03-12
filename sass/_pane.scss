@@ -1,0 +1,24 @@
+.pane {
+    box-shadow: 3px 3px 3px rgba(230, 230, 255, .4);
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: rgba(255, 255, 255, .7);
+    // background: repeating-linear-gradient(-45deg, rgba(225, 245, 255, .6), rgba(200, 220, 255, .6) 1px);
+
+    & .pane-header {
+        font-size: 1.4em;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #fff;
+        padding-bottom: 10px;
+        box-sizing: border-box;
+    }
+
+    & .pane-footer {
+        font-size: 1.4em;
+        margin-top: 10px;
+        border-top: 1px solid #fff;
+        padding-top: 10px;
+        box-sizing: border-box;
+    }
+
+}
