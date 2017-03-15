@@ -1,0 +1,19 @@
+.options-container {
+    margin-top: 10%;
+
+    & .pane {
+        margin: 45px;
+    }
+
+}
+
+@media (max-width: $screen-xs-max) {
+    .options-container {
+        margin-top: 15px;
+
+        & .pane {
+            margin: $distance-md;
+        }
+
+    }
+}
