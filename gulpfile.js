@@ -16,7 +16,10 @@ var scripts = [
 ];
 
 var angularScripts = [
-    './angular/app.js'
+    './angular/app.js',
+    './angular/LoginService.js',
+    './angular/LoginModel.js',
+    './angular/LoginController.js'
 ];
 
 var sassFiles = './sass/*.scss';
@@ -71,7 +74,7 @@ gulp.task('angular', function() {
     return gulp.src(angularScripts)
         .pipe(sourcemaps.init())
         .pipe(concat('angular.min.js'))
-        .pipe(uglify())
+        // .pipe(uglify())
         .pipe(gulp.dest('./ressources/angular'))
         .pipe(livereload());
 });

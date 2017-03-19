@@ -28,8 +28,12 @@
 
     </head>
 
-    <body ng-app="App">
-        <div class="container-fluid full-height flexbox">
+    <body ng-app="MyApp">
+        <div class="container-fluid full-height flexbox" ng-controller="LoginController">
+
+            <h1>
+                {{greeting}}
+            </h1>
 
             <div class="pane pane-login">
 
@@ -38,16 +42,23 @@
                 </div>
 
                 <form id="login-form">
+                    <div class="form-group" ng-class="usernameEmpty ? 'has-error has-feedback' : ''">
+                        <label for="username">Benutzername</label>
+                        <input class="form-control" type="text" name="username" placeholder="Benutzername" ng-model="loginModel.username">
+                        <div class="smalltext text-danger hidden" ng-class="usernameEmpty ? 'block' : ''">Benutzername leer</div>
+                        <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+                    </div>
 
-                    <label for="username">Benutzername</label>
-                    <input class="form-control" type="text" name="username" placeholder="Benutzername">
-
-                    <label class="margin-top-lg" for="password">Passwort</label>
-                    <input class="form-control" type="password" name="password" placeholder="Passwort">
+                    <div class="form-group margin-top-lg" ng-class="passwordEmpty ? 'has-error has-feedback' : ''">
+                        <label for="password">Passwort</label>
+                        <input class="form-control" type="password" name="password" placeholder="Passwort" ng-model="loginModel.password">
+                        <div class="smalltext text-danger hidden" ng-class="passwordEmpty ? 'block' : ''">Passwort leer</div>
+                        <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+                    </div>
                 </form>
 
                 <div class="pane-footer text-right">
-                    <button class="btn btn-sortimo" type="submit">
+                    <button class="btn btn-sortimo" type="submit" ng-click="eventListeners.submitLogin(loginModel);">
                         Anmelden
                     </button>
                 </div>

@@ -1,3 +1,7 @@
+.margin-0 {
+    margin: 0;
+}
+
 .margin-xs {
     margin: $distance-xs;
 }
@@ -16,6 +20,10 @@
 
 .margin-xl {
     margin: $distance-xl;
+}
+
+.margin-top-0 {
+    margin-top: 0;
 }
 
 .margin-top-xs {
@@ -38,6 +46,10 @@
     margin-top: $distance-xl;
 }
 
+.margin-bottom-0 {
+    margin-bottom: 0;
+}
+
 .margin-bottom-xs {
     margin-bottom: $distance-xs;
 }
@@ -56,6 +68,10 @@
 
 .margin-bottom-xl {
     margin-bottom: $distance-xl;
+}
+
+.padding-0 {
+    padding: 0;
 }
 
 .padding-xs {
@@ -78,6 +94,10 @@
     padding: $distance-xl;
 }
 
+.padding-top-0 {
+    padding-top: 0;
+}
+
 .padding-top-xs {
     padding-top: $distance-xs;
 }
@@ -96,6 +116,10 @@
 
 .padding-top-xl {
     padding-top: $distance-xl;
+}
+
+.padding-bottom-0 {
+    padding-bottom: 0;
 }
 
 .padding-bottom-xs {
