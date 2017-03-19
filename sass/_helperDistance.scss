@@ -14,6 +14,10 @@
     margin: $distance-lg;
 }
 
+.margin-xl {
+    margin: $distance-xl;
+}
+
 .margin-top-xs {
     margin-top: $distance-xs;
 }
@@ -28,6 +32,10 @@
 
 .margin-top-lg {
     margin-top: $distance-lg;
+}
+
+.margin-top-xl {
+    margin-top: $distance-xl;
 }
 
 .margin-bottom-xs {
@@ -46,6 +54,10 @@
     margin-bottom: $distance-lg;
 }
 
+.margin-bottom-xl {
+    margin-bottom: $distance-xl;
+}
+
 .padding-xs {
     padding: $distance-xs;
 }
@@ -60,6 +72,10 @@
 
 .padding-lg {
     padding: $distance-lg;
+}
+
+.padding-xl {
+    padding: $distance-xl;
 }
 
 .padding-top-xs {
@@ -78,6 +94,10 @@
     padding-top: $distance-lg;
 }
 
+.padding-top-xl {
+    padding-top: $distance-xl;
+}
+
 .padding-bottom-xs {
     padding-bottom: $distance-xs;
 }
@@ -92,4 +112,8 @@
 
 .padding-bottom-lg {
     padding-bottom: $distance-lg;
+}
+
+.padding-bottom-xl {
+    padding-bottom: $distance-xl;
 }

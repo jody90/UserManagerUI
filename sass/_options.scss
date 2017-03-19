@@ -1,19 +1,53 @@
 .options-container {
     margin-top: 10%;
 
-    & .pane {
-        margin: 45px;
+    & ul {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 0;
     }
 
+    & .option-item {
+        text-align: center;
+        list-style: none;
+        padding: $distance-lg;
+        box-shadow: 3px 3px 3px rgba(230, 230, 255, .4);
+        box-sizing: border-box;
+        background-color: rgba(255, 255, 255, .7);
+        font-size: 26px;
+        color: $pane-font-color;
+        margin-top: $distance-xl;
+        cursor: pointer;
+        transition: all .3s ease;
+        text-shadow: inset 0px 1px 3px #00f;
+
+        &:hover {
+            color: $pane-font-color-hover;
+            box-shadow: 3px 3px 3px rgba(230, 230, 255, .6);
+            background-color: rgba(255, 255, 255, .9);
+        }
+
+        & .option-icon {
+            font-size: 36px;
+            vertical-align: bottom;
+            margin-right: $distance-lg;
+        }
+
+    }
 }
+
+
 
 @media (max-width: $screen-xs-max) {
     .options-container {
-        margin-top: 15px;
+        & .option-item {
+            padding: $distance-md;
+            font-size: 20px;
+            margin-top: $distance-lg;
 
-        & .pane {
-            margin: $distance-md;
+            & .option-icon {
+                font-size: 26px;
+            }
         }
-
     }
 }

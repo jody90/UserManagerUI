@@ -40,12 +40,19 @@ gulp.task('webserver', function() {
 });
 
 gulp.task('watch', function() {
-    gulp.watch([sassFiles, jsFiles, angularFiles, imageFiles], ['sass', 'js', 'angular', 'images']);
+    gulp.watch([sassFiles, jsFiles, angularFiles, imageFiles], ['sass', 'js', 'angular', 'images', 'fonts']);
 })
 
 gulp.task('images', function() {
     return gulp.src( '' )
         .pipe(dirSync( './images', './ressources/images', { printSummary: true } ))
+        .on('error', handleError)
+        .pipe(livereload());
+})
+
+gulp.task('fonts', function() {
+    return gulp.src( '' )
+        .pipe(dirSync( './fonts', './ressources/fonts', { printSummary: true } ))
         .on('error', handleError)
         .pipe(livereload());
 })
@@ -83,4 +90,4 @@ gulp.task('sass', function () {
 });
 
 // Default Task
-gulp.task('default', ['sass', 'js', 'angular', 'images', 'webserver', 'watch']);
+gulp.task('default', ['sass', 'js', 'angular', 'images', 'fonts', 'webserver', 'watch']);

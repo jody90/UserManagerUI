@@ -29,8 +29,31 @@
     </head>
 
     <body ng-app="App">
-        <div class="container-fluid">
-            <h1 class="black-pane">UserManagerUI</h1>
+        <div class="container-fluid full-height flexbox">
+
+            <div class="pane pane-login">
+
+                <div class="pane-header">
+                    Login
+                </div>
+
+                <form id="login-form">
+
+                    <label for="username">Benutzername</label>
+                    <input class="form-control" type="text" name="username" placeholder="Benutzername">
+
+                    <label class="margin-top-lg" for="password">Passwort</label>
+                    <input class="form-control" type="password" name="password" placeholder="Passwort">
+                </form>
+
+                <div class="pane-footer text-right">
+                    <button class="btn btn-sortimo" type="submit">
+                        Anmelden
+                    </button>
+                </div>
+
+            </div>
+
         </div>
     </body>
 

@@ -2,7 +2,11 @@ body {
     font-family: $font-family;
     background-color: #000;
     color: #fff;
-    background: url('../images/background-black-blue.jpg');
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: 100% 100%;
+    background: url('../images/background-black-blue-landscape.jpg');
 }
+
+// @media screen and (orientation: portrait) {
+//     background: url('../images/background-black-blue-portrait.jpg');
+// }
