@@ -1,4 +1,4 @@
-myApp.controller('LoginController', ['$scope', 'LoginModel', function($scope, LoginModel) {
+myApp.controller('LoginController', ['$scope', 'LoginModel', 'LoginService', function($scope, LoginModel, LoginService) {
 
     $scope.loginModel = new LoginModel();
 
@@ -18,6 +18,13 @@ myApp.controller('LoginController', ['$scope', 'LoginModel', function($scope, Lo
             } catch (e) {
                 $scope.passwordEmpty = true;
             }
+
+            // Nur Request starten wenn Username und Passwort nicht leer sind
+            // if (!$scope.usernameEmpty && !$scope.passwordEmpty) {
+                var loginService = new LoginService();
+                loginService.login($scope.loginModel);
+            // }
+
         }
     };
 

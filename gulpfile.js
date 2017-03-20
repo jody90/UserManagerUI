@@ -17,8 +17,8 @@ var scripts = [
 
 var angularScripts = [
     './angular/app.js',
-    './angular/LoginService.js',
     './angular/LoginModel.js',
+    './angular/LoginService.js',
     './angular/LoginController.js'
 ];
 

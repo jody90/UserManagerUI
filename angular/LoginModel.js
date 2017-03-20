@@ -9,7 +9,7 @@ myApp.factory('LoginModel', ['MyException', function(MyException) {
 
     LoginModel.prototype = {
         setUsername: function(username) {
-            if (username === undefined || username === "") {
+            if (username === undefined || username.trim() === "") {
                 throw new MyException("emptyUsernameException", "Username is undefined or empty", "LoginModel");
             }
             this.username = username;
@@ -18,7 +18,7 @@ myApp.factory('LoginModel', ['MyException', function(MyException) {
             return this.username;
         },
         setPassword: function(password) {
-            if (password === undefined || password === "") {
+            if (password === undefined || password.trim() === "") {
                 throw new MyException("emptyPasswordException", "Password is undefined or empty", "LoginModel");
             }
             this.password = password;
