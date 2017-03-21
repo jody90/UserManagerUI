@@ -16,16 +16,16 @@ var scripts = [
 ];
 
 var angularScripts = [
-    './angular/app.js',
-    './angular/LoginModel.js',
-    './angular/LoginService.js',
-    './angular/LoginController.js'
+    './src/angular/app.js',
+    './src/angular/LoginModel.js',
+    './src/angular/LoginService.js',
+    './src/angular/LoginController.js'
 ];
 
-var sassFiles = './sass/*.scss';
-var jsFiles = './js/*.js';
-var angularFiles = './angular/*.js';
-var imageFiles = './images';
+var sassFiles = './src/sass/*.scss';
+var jsFiles = './src/js/*.js';
+var angularFiles = './src/angular/*.js';
+var imageFiles = './src/images';
 
 function handleError(err) {
     console.error(err.toString());
@@ -48,14 +48,14 @@ gulp.task('watch', function() {
 
 gulp.task('images', function() {
     return gulp.src( '' )
-        .pipe(dirSync( './images', './ressources/images', { printSummary: true } ))
+        .pipe(dirSync( './src/images', './ressources/images', { printSummary: true } ))
         .on('error', handleError)
         .pipe(livereload());
 })
 
 gulp.task('fonts', function() {
     return gulp.src( '' )
-        .pipe(dirSync( './fonts', './ressources/fonts', { printSummary: true } ))
+        .pipe(dirSync( './src/fonts', './ressources/fonts', { printSummary: true } ))
         .on('error', handleError)
         .pipe(livereload());
 })
@@ -80,7 +80,7 @@ gulp.task('angular', function() {
 });
 
 gulp.task('sass', function () {
-    return gulp.src('./sass/style.scss')
+    return gulp.src('./src/sass/style.scss')
         .pipe(sourcemaps.init())
         .pipe(sass().on('error', handleError))
         .pipe(gutil.env.type === 'production' ? cleanCss() : gutil.noop())
