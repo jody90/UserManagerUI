@@ -1,11 +1,9 @@
-myApp.factory('LoginService', ['MyException', '$http', function(MyException, $http) {
+myApp.factory('LoginService', ['MyException', '$http', '$q', function(MyException, $http, $q) {
 
     function LoginService() {};
 
     LoginService.prototype.login = function(loginModel) {
-
-        console.log("LoginService LoginModel", loginModel);
-
+        var defer = $q.defer();
         $http({
             method: 'POST',
             url: 'http://localhost:8080/api/auth',
@@ -14,15 +12,14 @@ myApp.factory('LoginService', ['MyException', '$http', function(MyException, $ht
             },
             data: loginModel
         }).then(function successCallback(response) {
-            console.log(response);
-            // this callback will be called asynchronously
-            // when the response is available
+            defer.resolve(response);
+            // return response;
         }, function errorCallback(response) {
-            console.error(response.data);
-            // called asynchronously if an error occurs
-            // or server returns response with an error status.
+            defer.reject(response);
+            // return response;
         });
 
+        return defer.promise;
     }
 
     return LoginService;

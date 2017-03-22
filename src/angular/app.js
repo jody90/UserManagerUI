@@ -1,4 +1,4 @@
-var myApp = angular.module('MyApp', []);
+var myApp = angular.module('MyApp', ['ngCookies']);
 
 myApp.factory("MyException", function() {
 
@@ -6,6 +6,7 @@ myApp.factory("MyException", function() {
         this.name = name;
         this.message = message;
         this.throwingClass = throwingClass;
+        this.method = method;
     }
 
     MyException.prototype = new Error();
@@ -14,3 +15,7 @@ myApp.factory("MyException", function() {
     return MyException
 
 })
+
+myApp.constant('config', {
+    tokenCookieExipre: 24  
+});

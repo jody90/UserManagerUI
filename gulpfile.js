@@ -17,6 +17,7 @@ var scripts = [
 
 var angularScripts = [
     './src/angular/app.js',
+    './src/angular/CookieService.js',
     './src/angular/LoginModel.js',
     './src/angular/LoginService.js',
     './src/angular/LoginController.js'
@@ -38,7 +39,12 @@ gulp.task('webserver', function() {
         livereload: true,
         directoryListing: false,
         open: false,
-        port:3000
+        port: 3000
+        // proxies: [{
+        //     source: "http://jody.jody.jody/jody",
+        //     target: "http://localhost:3000/src/templates/styleguide.html"
+        // }]
+
     }));
 });
 

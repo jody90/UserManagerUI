@@ -1,4 +1,4 @@
-myApp.controller('LoginController', ['$scope', 'LoginModel', 'LoginService', function($scope, LoginModel, LoginService) {
+myApp.controller('LoginController', ['$scope', '$q', 'LoginModel', 'LoginService', 'CookieService', function($scope, $q, LoginModel, LoginService, CookieService) {
 
     $scope.loginModel = new LoginModel();
 
@@ -20,10 +20,33 @@ myApp.controller('LoginController', ['$scope', 'LoginModel', 'LoginService', fun
             }
 
             // Nur Request starten wenn Username und Passwort nicht leer sind
-            // if (!$scope.usernameEmpty && !$scope.passwordEmpty) {
+            if (!$scope.usernameEmpty && !$scope.passwordEmpty) {
+
                 var loginService = new LoginService();
-                loginService.login($scope.loginModel);
-            // }
+
+                // Login request stellen
+                loginService.login($scope.loginModel)
+                // Login erfolgreich
+                .then(function(loginResponse) {
+
+                    console.info("loginResponse", loginResponse);
+
+                    var cookieService = new CookieService();
+                    cookieService.setTokenCookie(response.data.token);
+                })
+                // Login fehlgeschlagen
+                .catch(function(loginResponse) {
+                    switch (loginResponse.status) {
+                        case 404 :
+                            console.error("User does not exists");
+                        break;
+                        case 403 :
+                            console.error("User has bad credentials");
+                        break;
+                    }
+                })
+
+            }
 
         }
     };
