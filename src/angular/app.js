@@ -3,11 +3,11 @@ var myApp = angular.module('MyApp', ['ngCookies', 'ngRoute']);
 myApp.config(function($routeProvider) {
     $routeProvider
     .when("/", {
-        templateUrl : "src/templates/_login.html",
+        templateUrl : "src/templates/login.html",
         controller : "LoginController"
     })
     .when("/options", {
-        templateUrl : "src/templates/_options.html",
+        templateUrl : "src/templates/options.html",
         controller : "OptionsController"
     })
     .when("/red", {
@@ -34,3 +34,23 @@ myApp.factory("MyException", function() {
 myApp.constant('config', {
     tokenCookieExipre: 24
 });
+
+// myApp.directive('messageDirective', function ($rootScope) {
+//
+//     return {
+//         scope: {
+//             messageName: '@',
+//             messageTitle: '@',
+//             messageBody: '@',
+//             messageType: '@'
+//         },
+//         link: function ($scope, element, attrs) {
+//             showNotification($scope.messageBody, $scope.messageType, $scope.messageTitle, $scope.messageName, function(messageName) {
+//
+//                 delete $rootScope.messages[messageName];
+//
+//             });
+//         } //DOM manipulation
+//     }
+//
+// });

@@ -1,4 +1,4 @@
-myApp.controller('LoginController', ['$scope', '$q', 'LoginModel', 'LoginService', 'CookieService', function($scope, $q, LoginModel, LoginService, CookieService) {
+myApp.controller('LoginController', ['$scope', '$rootScope', '$q', 'LoginModel', 'LoginService', 'CookieService', function($scope, $rootScope, $q, LoginModel, LoginService, CookieService) {
 
     $scope.loginModel = new LoginModel();
 
@@ -11,16 +11,15 @@ myApp.controller('LoginController', ['$scope', '$q', 'LoginModel', 'LoginService
             try {
                 $scope.loginModel.setUsername(loginData.username);
             } catch (e) {
+                showNotification("Feld Benutzername ist leer!", "warning", undefined, 2000);
                 $scope.usernameEmpty = true;
             }
             try {
                 $scope.loginModel.setPassword(loginData.password);
             } catch (e) {
+                showNotification("Feld Passwort ist leer!", "warning", undefined, 9999999);
                 $scope.passwordEmpty = true;
             }
-
-            var cookieService = new CookieService();
-            cookieService.setTokenCookie("TokenXYZ");
 
             // Nur Request starten wenn Username und Passwort nicht leer sind
             if (!$scope.usernameEmpty && !$scope.passwordEmpty) {
@@ -38,10 +37,10 @@ myApp.controller('LoginController', ['$scope', '$q', 'LoginModel', 'LoginService
                 .catch(function(loginResponse) {
                     switch (loginResponse.status) {
                         case 404 :
-                            console.error("User does not exists");
+                            showNotification("Benutzer existiert nicht!", "error", "Benutzer");
                         break;
                         case 403 :
-                            console.error("User has bad credentials");
+                            showNotification("Passwort ist falsch!", "error", "Passwort");
                         break;
                     }
                 })

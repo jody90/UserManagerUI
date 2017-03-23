@@ -1,62 +1,31 @@
-<!DOCTYPE html>
-<html lang="de">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="description" content="AngularWebApp">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<div class="full-height flexbox">
+    <div class="pane pane-login">
 
-        <title>AngularWebApp</title>
+        <div class="pane-header">
+            Login
+        </div>
 
-        <!-- Favicon -->
-        <link rel="shortcut icon" href="/ressources/images/favicon.png" type="image/png" />
-        <link rel="icon" href="/ressources/images/favicon.png" type="image/png" />
-
-        <!-- CSS Styles -->
-        <!-- Librarys -->
-        <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
-
-        <!-- Custom -->
-        <link rel="stylesheet" href="/ressources/css/style.min.css">
-
-        <!-- JS Scripts -->
-        <!-- Librarys -->
-        <script type="text/javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
-        <script type="text/javascript" src="/node_modules/angular/angular.min.js"></script>
-        <script type="text/javascript" src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-
-        <!-- Custom -->
-        <script type="text/javascript" src="/ressources/js/scripts.min.js"></script>
-        <script type="text/javascript" src="/ressources/angular/angular.min.js"></script>
-
-    </head>
-
-    <body ng-app="App">
-        <div class="container-fluid full-height flexbox">
-
-            <div class="pane pane-login">
-
-                <div class="pane-header">
-                    Login
-                </div>
-
-                <form id="login-form">
-
-                    <label for="username">Benutzername</label>
-                    <input class="form-control" type="text" name="username" placeholder="Benutzername">
-
-                    <label class="margin-top-lg" for="password">Passwort</label>
-                    <input class="form-control" type="password" name="password" placeholder="Passwort">
-                </form>
-
-                <div class="pane-footer text-right">
-                    <button class="btn btn-sortimo" type="submit">
-                        Anmelden
-                    </button>
-                </div>
-
+        <form id="login-form">
+            <div class="form-group" ng-class="usernameEmpty ? 'has-error has-feedback' : ''">
+                <label for="username">Benutzername</label>
+                <input class="form-control" type="text" name="username" placeholder="Benutzername" ng-model="loginModel.username">
+                <div class="smalltext text-danger hidden" ng-class="usernameEmpty ? 'block' : ''">Benutzername leer</div>
+                <span class="glyphicon glyphicon-remove form-control-feedback"></span>
             </div>
 
-        </div>
-    </body>
+            <div class="form-group margin-top-lg" ng-class="passwordEmpty ? 'has-error has-feedback' : ''">
+                <label for="password">Passwort</label>
+                <input class="form-control" type="password" name="password" placeholder="Passwort" ng-model="loginModel.password">
+                <div class="smalltext text-danger hidden" ng-class="passwordEmpty ? 'block' : ''">Passwort leer</div>
+                <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+            </div>
+        </form>
 
-</html>
+        <div class="pane-footer text-right">
+            <button class="btn btn-sortimo" type="submit" ng-click="eventListeners.submitLogin(loginModel);">
+                Anmelden
+            </button>
+        </div>
+
+    </div>
+</div>

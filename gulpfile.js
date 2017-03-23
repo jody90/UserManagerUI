@@ -12,6 +12,7 @@ var dirSync    = require('gulp-directory-sync');
 var server     = require('gulp-server-livereload');
 
 var scripts = [
+    './js/functions.js',
     './js/scripts.js'
 ];
 
@@ -20,15 +21,11 @@ var angularScripts = [
     './src/angular/services/*.js',
     './src/angular/model/*.js',
     './src/angular/controller/*.js'
-    // './src/angular/CookieService.js',
-    // './src/angular/LoginModel.js',
-    // './src/angular/LoginService.js',
-    // './src/angular/LoginController.js'
 ];
 
 var sassFiles = './src/sass/*.scss';
 var jsFiles = './src/js/*.js';
-var angularFiles = './src/angular/*.js';
+var angularFiles = './src/angular/**/*.js';
 var imageFiles = './src/images';
 
 function handleError(err) {
@@ -74,7 +71,7 @@ gulp.task('js', function() {
     .pipe(sourcemaps.init())
     .pipe(concat('scripts.min.js'))
     .pipe(sourcemaps.write())
-    .pipe(uglify())
+    // .pipe(uglify())
     .pipe(gulp.dest('./ressources/js'))
     .pipe(livereload());
 });
