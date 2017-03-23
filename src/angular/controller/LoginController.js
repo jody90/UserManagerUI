@@ -17,7 +17,7 @@ myApp.controller('LoginController', ['$scope', '$rootScope', '$q', 'LoginModel',
             try {
                 $scope.loginModel.setPassword(loginData.password);
             } catch (e) {
-                showNotification("Feld Passwort ist leer!", "warning", undefined, 9999999);
+                showNotification("Feld Passwort ist leer!", "warning", undefined, 2000);
                 $scope.passwordEmpty = true;
             }
 
