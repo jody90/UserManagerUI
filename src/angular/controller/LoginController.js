@@ -19,6 +19,9 @@ myApp.controller('LoginController', ['$scope', '$q', 'LoginModel', 'LoginService
                 $scope.passwordEmpty = true;
             }
 
+            var cookieService = new CookieService();
+            cookieService.setTokenCookie("TokenXYZ");
+
             // Nur Request starten wenn Username und Passwort nicht leer sind
             if (!$scope.usernameEmpty && !$scope.passwordEmpty) {
 
@@ -28,11 +31,8 @@ myApp.controller('LoginController', ['$scope', '$q', 'LoginModel', 'LoginService
                 loginService.login($scope.loginModel)
                 // Login erfolgreich
                 .then(function(loginResponse) {
-
-                    console.info("loginResponse", loginResponse);
-
                     var cookieService = new CookieService();
-                    cookieService.setTokenCookie(response.data.token);
+                    cookieService.setTokenCookie(loginResponse.data.token);
                 })
                 // Login fehlgeschlagen
                 .catch(function(loginResponse) {

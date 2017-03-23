@@ -1,0 +1,31 @@
+<div class="full-height flexbox">
+    <div class="pane pane-login">
+
+        <div class="pane-header">
+            Login
+        </div>
+
+        <form id="login-form">
+            <div class="form-group" ng-class="usernameEmpty ? 'has-error has-feedback' : ''">
+                <label for="username">Benutzername</label>
+                <input class="form-control" type="text" name="username" placeholder="Benutzername" ng-model="loginModel.username">
+                <div class="smalltext text-danger hidden" ng-class="usernameEmpty ? 'block' : ''">Benutzername leer</div>
+                <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+            </div>
+
+            <div class="form-group margin-top-lg" ng-class="passwordEmpty ? 'has-error has-feedback' : ''">
+                <label for="password">Passwort</label>
+                <input class="form-control" type="password" name="password" placeholder="Passwort" ng-model="loginModel.password">
+                <div class="smalltext text-danger hidden" ng-class="passwordEmpty ? 'block' : ''">Passwort leer</div>
+                <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+            </div>
+        </form>
+
+        <div class="pane-footer text-right">
+            <button class="btn btn-sortimo" type="submit" ng-click="eventListeners.submitLogin(loginModel);">
+                Anmelden
+            </button>
+        </div>
+
+    </div>
+</div>

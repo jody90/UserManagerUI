@@ -22,6 +22,7 @@
         <script type="text/javascript" src="./node_modules/angular/angular.min.js"></script>
         <script type="text/javascript" src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="./node_modules/angular-cookies/angular-cookies.min.js"></script>
+        <script type="text/javascript" src="./node_modules/angular-route/angular-route.min.js"></script>
         <script type="text/javascript" src="./node_modules/q/q.js"></script>
 
         <!-- Custom -->
@@ -31,41 +32,9 @@
     </head>
 
     <body ng-app="MyApp">
-        <div class="container-fluid full-height flexbox" ng-controller="LoginController">
+        <div class="container-fluid">
 
-            <h1>
-                {{greeting}}
-            </h1>
-
-            <div class="pane pane-login">
-
-                <div class="pane-header">
-                    Login
-                </div>
-
-                <form id="login-form">
-                    <div class="form-group" ng-class="usernameEmpty ? 'has-error has-feedback' : ''">
-                        <label for="username">Benutzername</label>
-                        <input class="form-control" type="text" name="username" placeholder="Benutzername" ng-model="loginModel.username">
-                        <div class="smalltext text-danger hidden" ng-class="usernameEmpty ? 'block' : ''">Benutzername leer</div>
-                        <span class="glyphicon glyphicon-remove form-control-feedback"></span>
-                    </div>
-
-                    <div class="form-group margin-top-lg" ng-class="passwordEmpty ? 'has-error has-feedback' : ''">
-                        <label for="password">Passwort</label>
-                        <input class="form-control" type="password" name="password" placeholder="Passwort" ng-model="loginModel.password">
-                        <div class="smalltext text-danger hidden" ng-class="passwordEmpty ? 'block' : ''">Passwort leer</div>
-                        <span class="glyphicon glyphicon-remove form-control-feedback"></span>
-                    </div>
-                </form>
-
-                <div class="pane-footer text-right">
-                    <button class="btn btn-sortimo" type="submit" ng-click="eventListeners.submitLogin(loginModel);">
-                        Anmelden
-                    </button>
-                </div>
-
-            </div>
+            <div ng-view></div>
 
         </div>
     </body>

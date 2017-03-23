@@ -17,10 +17,13 @@ var scripts = [
 
 var angularScripts = [
     './src/angular/app.js',
-    './src/angular/CookieService.js',
-    './src/angular/LoginModel.js',
-    './src/angular/LoginService.js',
-    './src/angular/LoginController.js'
+    './src/angular/services/*.js',
+    './src/angular/model/*.js',
+    './src/angular/controller/*.js'
+    // './src/angular/CookieService.js',
+    // './src/angular/LoginModel.js',
+    // './src/angular/LoginService.js',
+    // './src/angular/LoginController.js'
 ];
 
 var sassFiles = './src/sass/*.scss';
