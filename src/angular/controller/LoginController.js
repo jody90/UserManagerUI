@@ -42,6 +42,9 @@ myApp.controller('LoginController', ['$scope', '$rootScope', '$q', 'LoginModel',
                         case 403 :
                             showNotification("Passwort ist falsch!", "error", "Passwort");
                         break;
+                        case -1 :
+                            showNotification("REST Service ist nicht erreichbar!", "error", "Backend");
+                        break;
                     }
                 })
 

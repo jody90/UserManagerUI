@@ -10,8 +10,25 @@ myApp.config(function($routeProvider) {
         templateUrl : "src/templates/options.html",
         controller : "OptionsController"
     })
-    .when("/red", {
-        templateUrl : "src/templates/styleguide.html"
+    .otherwise({redirectTo: "/"});
+})
+
+// Pruefen ob User angemeldet ist
+myApp.run(function($rootScope, $location, CookieService) {
+
+    var cookieService = new CookieService();
+
+    $rootScope.$on( "$routeChangeStart", function(event, next, current) {
+
+        var token = cookieService.getTokenCookie();
+
+        console.log("$rootScope.loggedInUser: ", $rootScope.loggedInUser);
+
+        if ($rootScope.loggedInUser == null || token == null) {
+            if (next.templateUrl !== "src/templates/login.html") {
+                $location.path("/");
+            }
+        }
     });
 });
 
