@@ -4,8 +4,6 @@ myApp.factory('UsersService', ['MyException', '$q', '$http', 'UserModel', functi
 
     UsersService.prototype.getUsers = function(token) {
 
-        console.log("token", token);
-
         var defer = $q.defer();
 
         $http({

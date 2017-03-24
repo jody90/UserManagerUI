@@ -46,7 +46,6 @@ myApp.run(function($rootScope, $location, CookieService, UserService) {
 
         // Pruefen ob User Object und Token vorhanden sind
         if ($rootScope.user != null) {
-            // console.log("next: ", next);
         }
         else if ($rootScope.user == null && $rootScope.token != null && $rootScope.token.username != null && $rootScope.token.value != null) {
 
@@ -57,7 +56,7 @@ myApp.run(function($rootScope, $location, CookieService, UserService) {
             userService.getUser($rootScope.token.username, $rootScope.token.value)
             .then(function(userModel) {
                 $rootScope.user = userModel;
-                $location.path("/");
+                $location.path(next.originalPath);
             })
             .catch(function(getUserResponse) {
                 showNotification("Bei der Useranfrage lief was schief. Call an Admin!", "error", "Backend Request");

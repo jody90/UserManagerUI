@@ -10,7 +10,6 @@ myApp.controller('UsersController', [
         usersService.getUsers($rootScope.token.value)
         .then(function(users) {
             $scope.users = users;
-            console.log("users: ", users);
         })
         .catch(function(usersResponse) {
             console.error("usersResponse: ", usersResponse);

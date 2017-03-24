@@ -1,1 +1,69 @@
-<h1>Users</h1>
+<div class="row margin-top-lg">
+    <div class="col-xs-12 col-md-3">
+        <div class="form-group">
+            <label for="search-field">Suchbegriff</label>
+            <input type="text" name="search-field" placeholder="Hier könnte dein Suchbegriff stehen..." ng-model="search" class="form-control">
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+
+    <div ng-repeat="user in users | filter:search" class="col-xs-12 col-sm-6 col-md-4 col-lg-2 margin-top-lg">
+        <div class="pane">
+            <div class="pane-header">
+                {{user.username}}
+            </div>
+            <div class="pane-body">
+                <table border="0" width="100%">
+                    <tr>
+                        <td>
+                            <strong>
+                                Vorname:
+                            </strong>
+                        </td>
+                        <td>
+                            {{user.firstname}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>
+                                Nachname:
+                            </strong>
+                        </td>
+                        <td>
+                            {{user.lastname}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>
+                                Email:
+                            </strong>
+                        </td>
+                        <td>
+                            {{user.email}}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="pane-footer text-right">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <button class="btn btn-block btn-sortimo">
+                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                    <div class="col-xs-6">
+                        <button class="btn btn-block btn-danger">
+                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
