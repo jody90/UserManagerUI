@@ -3,12 +3,12 @@ var myApp = angular.module('MyApp', ['ngCookies', 'ngRoute']);
 myApp.config(function($routeProvider) {
     $routeProvider
     .when("/", {
-        templateUrl : "src/templates/login.html",
-        controller : "LoginController"
-    })
-    .when("/options", {
         templateUrl : "src/templates/options.html",
         controller : "OptionsController"
+    })
+    .when("/login", {
+        templateUrl : "src/templates/login.html",
+        controller : "LoginController"
     })
     .otherwise({redirectTo: "/"});
 })
@@ -18,15 +18,24 @@ myApp.run(function($rootScope, $location, CookieService) {
 
     var cookieService = new CookieService();
 
+    // bei jedem routeChangeStart ausfuehren
     $rootScope.$on( "$routeChangeStart", function(event, next, current) {
 
         var token = cookieService.getTokenCookie();
 
-        console.log("$rootScope.loggedInUser: ", $rootScope.loggedInUser);
+        // console.log("$rootScope.user: ", $rootScope.user);
 
-        if ($rootScope.loggedInUser == null || token == null) {
+        // Pruefen ob User Object und Token vorhanden sind
+        if ($rootScope.user != null) {
+            // console.log("next: ", next);
+        }
+        else if ($rootScope.user == null && token != null && token.username != null && token.value != null) {
+            console.log("User Object mithilfe von Token anfragen");
+        }
+        else {
+            // Pruefen ob Ziel-URL login ist wenn nicht automatisch zu Login umleiten
             if (next.templateUrl !== "src/templates/login.html") {
-                $location.path("/");
+                $location.path("/login");
             }
         }
     });

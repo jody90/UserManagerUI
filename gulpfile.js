@@ -80,6 +80,7 @@ gulp.task('angular', function() {
     return gulp.src(angularScripts)
         .pipe(sourcemaps.init())
         .pipe(concat('angular.min.js'))
+        .pipe(sourcemaps.write())
         // .pipe(uglify())
         .pipe(gulp.dest('./ressources/angular'))
         .pipe(livereload());

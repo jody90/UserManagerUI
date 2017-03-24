@@ -1,4 +1,4 @@
-myApp.factory('CookieService', ['config', 'MyException', '$cookies', '$q', function(config, MyException, $cookies, $q) {
+myApp.factory('CookieService', ['config', 'MyException', '$cookies', function(config, MyException, $cookies) {
 
     function CookieService() {}
 
@@ -20,13 +20,14 @@ myApp.factory('CookieService', ['config', 'MyException', '$cookies', '$q', funct
         return currentDate < tokenDate;
     }
 
-    CookieService.prototype.setTokenCookie = function(token) {
+    CookieService.prototype.setTokenCookie = function(token, username) {
 
         var expires = new Date().addHours(config.tokenCookieExipre);
 
         var tokenObject = {
             value : token,
-            expires : expires
+            expires : expires,
+            username : username
         }
 
         $cookies.putObject("token", tokenObject, {expires: expires});
@@ -34,15 +35,13 @@ myApp.factory('CookieService', ['config', 'MyException', '$cookies', '$q', funct
 
     CookieService.prototype.getTokenCookie = function() {
 
-        var defer = $q.defer();
-
         var token = $cookies.getObject("token");
 
         if (token !== undefined && isTokenActive(token)) {
-            return null;
+            return token;
         }
 
-        return token;
+        return null;
 
     }
 

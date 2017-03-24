@@ -1,6 +1,17 @@
-myApp.controller('LoginController', ['$scope', '$rootScope', '$q', 'LoginModel', 'LoginService', 'CookieService', function($scope, $rootScope, $q, LoginModel, LoginService, CookieService) {
+myApp.controller('LoginController', [
+    '$scope',
+    '$rootScope',
+    '$q',
+    '$location',
+    'LoginModel',
+    'LoginService',
+    'CookieService',
+    'UserService',
+    function($scope, $rootScope, $q, $location, LoginModel, LoginService, CookieService, UserService) {
 
     $scope.loginModel = new LoginModel();
+
+    $rootScope.test = "jody test";
 
     $scope.eventListeners = {
         submitLogin : function(loginData) {
@@ -8,6 +19,7 @@ myApp.controller('LoginController', ['$scope', '$rootScope', '$q', 'LoginModel',
             $scope.usernameEmpty = false;
             $scope.passwordEmpty = false;
 
+            // loginModel mit Eingaben befuellen
             try {
                 $scope.loginModel.setUsername(loginData.username);
             } catch (e) {
@@ -30,8 +42,33 @@ myApp.controller('LoginController', ['$scope', '$rootScope', '$q', 'LoginModel',
                 loginService.login($scope.loginModel)
                 // Login erfolgreich
                 .then(function(loginResponse) {
+
+                    // Cookie mit Token setzen
                     var cookieService = new CookieService();
-                    cookieService.setTokenCookie(loginResponse.data.token);
+                    cookieService.setTokenCookie(loginResponse.data.token, $scope.loginModel.username);
+
+                    var token = cookieService.getTokenCookie("token");
+
+                    // Pruefen ob User in rootScope und tokenCookie vorhanden
+                    if (token != null && token.username != null) {
+
+                        // UserDetails von REST Schnittstelle anfragen
+                        var userService = new UserService();
+                        userService.getUser(token.username, token.value)
+                        .then(function(userModel) {
+                            $rootScope.user = userModel;
+                            $location.path("/");
+                        })
+                        .catch(function(getUserResponse) {
+                            showNotification("Bei der Useranfrage lief was schief. Call an Admin!", "error", "Backend Request");
+                        });
+                    }
+                    else {
+                        showNotification("Token ist leer, bitte erneut versuchen.", "error", "Token");
+                        console.info("token ist leer, erneut versuchen");
+                        $location.path("/login");
+                    }
+
                 })
                 // Login fehlgeschlagen
                 .catch(function(loginResponse) {
