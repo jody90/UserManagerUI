@@ -47,14 +47,14 @@ myApp.controller('LoginController', [
                     var cookieService = new CookieService();
                     cookieService.setTokenCookie(loginResponse.data.token, $scope.loginModel.username);
 
-                    var token = cookieService.getTokenCookie("token");
+                    $rootScope.token = cookieService.getTokenCookie("token");
 
                     // Pruefen ob User in rootScope und tokenCookie vorhanden
-                    if (token != null && token.username != null) {
+                    if ($rootScope.token != null && $rootScope.token.username != null) {
 
                         // UserDetails von REST Schnittstelle anfragen
                         var userService = new UserService();
-                        userService.getUser(token.username, token.value)
+                        userService.getUser($rootScope.token.username, $rootScope.token.value)
                         .then(function(userModel) {
                             $rootScope.user = userModel;
                             $location.path("/");

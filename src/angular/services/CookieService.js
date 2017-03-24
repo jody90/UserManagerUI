@@ -8,7 +8,7 @@ myApp.factory('CookieService', ['config', 'MyException', '$cookies', function(co
     // }
 
     Date.prototype.addHours = function(h) {
-        this.setMinutes(this.getMinutes() + 1);
+        this.setMinutes(this.getMinutes() + 20);
         return this;
     }
 

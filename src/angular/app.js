@@ -10,31 +10,64 @@ myApp.config(function($routeProvider) {
         templateUrl : "src/templates/login.html",
         controller : "LoginController"
     })
+    .when("/users", {
+        templateUrl : "src/templates/users.html",
+        controller : "UsersController"
+    })
+    .when("/rights", {
+        templateUrl : "src/templates/rights.html",
+        controller : "RightsController"
+    })
+    .when("/roles", {
+        templateUrl : "src/templates/roles.html",
+        controller : "RolesController"
+    })
+    .when("/password", {
+        templateUrl : "src/templates/password.html",
+        controller : "PasswordController"
+    })
     .otherwise({redirectTo: "/"});
 })
 
 // Pruefen ob User angemeldet ist
-myApp.run(function($rootScope, $location, CookieService) {
+myApp.run(function($rootScope, $location, CookieService, UserService) {
 
     var cookieService = new CookieService();
 
     // bei jedem routeChangeStart ausfuehren
     $rootScope.$on( "$routeChangeStart", function(event, next, current) {
 
-        var token = cookieService.getTokenCookie();
+        if ($rootScope.token == null) {
+            $rootScope.token = cookieService.getTokenCookie();
+        }
 
-        // console.log("$rootScope.user: ", $rootScope.user);
+        // console.info("$rootScope.user: ", $rootScope.user);
+        // console.info("$rootScope.token: ", $rootScope.token);
 
         // Pruefen ob User Object und Token vorhanden sind
         if ($rootScope.user != null) {
             // console.log("next: ", next);
         }
-        else if ($rootScope.user == null && token != null && token.username != null && token.value != null) {
-            console.log("User Object mithilfe von Token anfragen");
+        else if ($rootScope.user == null && $rootScope.token != null && $rootScope.token.username != null && $rootScope.token.value != null) {
+
+            // console.info("User Object mithilfe von Token anfragen");
+
+            // UserDetails von REST Schnittstelle anfragen
+            var userService = new UserService();
+            userService.getUser($rootScope.token.username, $rootScope.token.value)
+            .then(function(userModel) {
+                $rootScope.user = userModel;
+                $location.path("/");
+            })
+            .catch(function(getUserResponse) {
+                showNotification("Bei der Useranfrage lief was schief. Call an Admin!", "error", "Backend Request");
+            });
+
         }
         else {
             // Pruefen ob Ziel-URL login ist wenn nicht automatisch zu Login umleiten
             if (next.templateUrl !== "src/templates/login.html") {
+                console.log("Weitergeleitet von Proxy");
                 $location.path("/login");
             }
         }
