@@ -1,0 +1,19 @@
+<div class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <h4>Bist du sicher, dass du <strong>{{modalUser.username}}</strong> wirklich löschen willst?</h4>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <button type="button" ng-click="close(false)" class="btn btn-block btn-default" data-dismiss="modal">Nicht löschen</button>
+                    </div>
+                    <div class="col-xs-6">
+                        <button type="button" ng-click="close('delete')" class="btn btn-block btn-danger" data-dismiss="modal">Löschen</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

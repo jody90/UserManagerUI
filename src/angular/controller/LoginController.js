@@ -80,7 +80,7 @@ myApp.controller('LoginController', [
                             showNotification("Passwort ist falsch!", "error", "Passwort");
                         break;
                         case -1 :
-                            showNotification("REST Service ist nicht erreichbar!", "error", "Backend");
+                            showNotification("REST Service ist nicht erreichbar! Admin Benachrichtigen!", "error", "Backend");
                         break;
                     }
                 })

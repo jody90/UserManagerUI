@@ -3,7 +3,10 @@ myApp.controller('UsersController', [
     '$rootScope',
     '$q',
     'UsersService',
-    function($scope, $rootScope, $q, UsersService) {
+    'ModalService',
+    function($scope, $rootScope, $q, UsersService, ModalService, UserModel) {
+
+        $scope.users = null;
 
         var usersService = new UsersService();
 
@@ -15,8 +18,30 @@ myApp.controller('UsersController', [
             console.error("usersResponse: ", usersResponse);
         })
 
+// var userModel = new UserModel("aa", "aa", ",aa", "asdfasd", "sdaf", "asdf", "asdf");
+// var user = new Object();
+// user.prototype = new UserModel("aa", "aa", ",aa", "asdfasd", "sdaf", "asdf", "asdf");
+        // console.log("UserModel: ", user);
 
+        $scope.openModal = function(user) {
+            ModalService.showModal({
+                templateUrl: "/src/templates/_modalDelete.html",
+                controller: 'ModalDeleteController',
+                inputs: {
+                    modalUser : user
+                }
+            })
+            .then(function(modal) {
+                modal.element.modal();
+                modal.close.then(function(result) {
+                    console.log(result);
+                    if (result) {
+                        console.log("ja");
+                        // usersService.deleteUser(username);
+                    }
+                    console.log(result);
+                });
+            });
+        };
 
-
-
-}]);
+    }]);

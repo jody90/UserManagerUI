@@ -16,7 +16,8 @@ myApp.factory('UserService', ['MyException', '$q', '$http', 'UserModel', functio
         })
         .then(function successCallback(response) {
             var tmpUser = response.data;
-            var userModel = new UserModel(tmpUser.username, tmpUser.firstname, tmpUser.lastname, tmpUser.email, tmpUser.authorities, tmpUser.rights, tmpUser.roles);
+            var userModel = UserModel.create(tmpUser.username, tmpUser.firstname, tmpUser.lastname, tmpUser.email, tmpUser.authorities, tmpUser.rights, tmpUser.roles);
+            // var userModel = new UserModel(tmpUser.username, tmpUser.firstname, tmpUser.lastname, tmpUser.email, tmpUser.authorities, tmpUser.rights, tmpUser.roles);
             defer.resolve(userModel);
         }, function errorCallback(response) {
             defer.reject(response);
