@@ -54,7 +54,7 @@ myApp.controller('LoginController', [
 
                         // UserDetails von REST Schnittstelle anfragen
                         var userService = new UserService();
-                        userService.getUser($rootScope.token.username, $rootScope.token.value)
+                        userService.getUser($rootScope.token.username)
                         .then(function(userModel) {
                             $rootScope.user = userModel;
                             $location.path("/");

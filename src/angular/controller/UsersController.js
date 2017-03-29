@@ -10,7 +10,7 @@ myApp.controller('UsersController', [
 
         var usersService = new UsersService();
 
-        usersService.getUsers($rootScope.token.value)
+        usersService.getUsers()
         .then(function(users) {
             $scope.users = users;
         })
@@ -18,15 +18,10 @@ myApp.controller('UsersController', [
             console.error("usersResponse: ", usersResponse);
         })
 
-// var userModel = new UserModel("aa", "aa", ",aa", "asdfasd", "sdaf", "asdf", "asdf");
-// var user = new Object();
-// user.prototype = new UserModel("aa", "aa", ",aa", "asdfasd", "sdaf", "asdf", "asdf");
-        // console.log("UserModel: ", user);
-
-        $scope.openModal = function(user) {
+        $scope.openUserEditModal = function(user) {
             ModalService.showModal({
-                templateUrl: "/src/templates/_modalDelete.html",
-                controller: 'ModalDeleteController',
+                templateUrl: "/src/templates/_modalUserEdit.html",
+                controller: 'ModalUserEditController',
                 inputs: {
                     modalUser : user
                 }
@@ -40,6 +35,40 @@ myApp.controller('UsersController', [
                         // usersService.deleteUser(username);
                     }
                     console.log(result);
+                });
+            });
+        };
+
+        $scope.openUserDeleteModal = function(user) {
+            ModalService.showModal({
+                templateUrl: "/src/templates/_modalUserDelete.html",
+                controller: 'ModalUserDeleteController',
+                inputs: {
+                    modalUser : user
+                }
+            })
+            .then(function(modal) {
+                modal.element.modal();
+                modal.close.then(function(deleteUser) {
+
+                    if (deleteUser != null || deleteUser.trim() !== "") {
+
+                        // User loeschen und aktuelle Liste der User holen
+                        usersService.deleteUser(deleteUser)
+                        .then(function(response) {
+                            usersService.getUsers()
+                            .then(function(users) {
+                                $scope.users = users;
+                            })
+                            .catch(function(usersResponse) {
+                                console.error("usersResponse: ", usersResponse);
+                            })
+                        })
+                        .catch(function(usersResponse) {
+                            console.error("userDeleteResponse: ", usersResponse);
+                        })
+                    }
+
                 });
             });
         };
