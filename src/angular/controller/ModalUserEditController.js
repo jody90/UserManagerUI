@@ -5,8 +5,8 @@ myApp.controller('ModalUserEditController', ['$scope', 'close', 'modalUser', fun
     $scope.close = function(result) {
         if (result) {
             result = $scope.modalUser;
+            close(result, 500); // close, but give 500ms for bootstrap to animate
         }
-        close(result, 500); // close, but give 500ms for bootstrap to animate
     };
 
 }]);
