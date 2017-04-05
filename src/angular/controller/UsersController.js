@@ -1,16 +1,11 @@
-myApp.controller('UsersController', [
-    '$scope',
-    '$rootScope',
-    '$q',
-    'UsersService',
-    'ModalService',
-    function($scope, $rootScope, $q, UsersService, ModalService, UserModel) {
+myApp.controller('UsersController', ['$scope', '$rootScope', '$q', 'UserService', 'ModalService',
+function($scope, $rootScope, $q, UsersService, ModalService, UserModel) {
 
         $scope.users = null;
 
-        var usersService = new UsersService();
+        var userService = new UsersService();
 
-        usersService.getUsers()
+        userService.getUsers()
         .then(function(users) {
             $scope.users = users;
         })
@@ -18,12 +13,12 @@ myApp.controller('UsersController', [
             console.error("usersResponse: ", usersResponse);
         })
 
-        $scope.openUserEditModal = function(user) {
+        $scope.openUserEditModal = function(username) {
             ModalService.showModal({
                 templateUrl: "/src/templates/_modalUserEdit.html",
                 controller: 'ModalUserEditController',
                 inputs: {
-                    modalUser : user
+                    username : username
                 }
             })
             .then(function(modal) {
@@ -32,7 +27,7 @@ myApp.controller('UsersController', [
                     console.log(result);
                     if (result) {
                         console.log("ja");
-                        // usersService.deleteUser(username);
+                        // userService.deleteUser(username);
                     }
                     console.log(result);
                 });
@@ -54,9 +49,9 @@ myApp.controller('UsersController', [
                     if (deleteUser != null || deleteUser.trim() !== "") {
 
                         // User loeschen und aktuelle Liste der User holen
-                        usersService.deleteUser(deleteUser)
+                        userService.deleteUser(deleteUser)
                         .then(function(response) {
-                            usersService.getUsers()
+                            userService.getUsers()
                             .then(function(users) {
                                 $scope.users = users;
                             })

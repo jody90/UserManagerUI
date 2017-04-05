@@ -1,0 +1,14 @@
+.possible-roles-container,
+.possible-rights-container,
+.active-roles-container,
+.active-rights-container {
+    border: 1px solid $light-grey;
+    min-height: 200px;
+
+    & .add-remove-item {
+        padding: 10px 5px;
+        margin: 5px 0;
+        border: 1px solid red;
+    }
+
+}
