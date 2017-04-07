@@ -9,7 +9,7 @@ function(MyException, $q, $http, $rootScope) {
 
         $http({
             method: 'GET',
-            url: 'http://localhost:8090/api/role/' + roleName,
+            url: 'http://localhost:51001/api/role/' + roleName,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': $rootScope.token.value
@@ -32,7 +32,7 @@ function(MyException, $q, $http, $rootScope) {
 
         $http({
             method: 'GET',
-            url: 'http://localhost:8090/api/role/',
+            url: 'http://localhost:51001/api/role/',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': $rootScope.token.value

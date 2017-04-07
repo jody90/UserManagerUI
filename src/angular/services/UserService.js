@@ -9,7 +9,7 @@ function(MyException, $q, $http, $rootScope, UserModel, UserPreviewModel) {
 
         $http({
             method: 'GET',
-            url: 'http://localhost:8090/api/user/' + username,
+            url: 'http://localhost:51001/api/user/' + username,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': $rootScope.token.value
@@ -32,7 +32,7 @@ function(MyException, $q, $http, $rootScope, UserModel, UserPreviewModel) {
 
         $http({
             method: 'GET',
-            url: 'http://localhost:8090/api/user',
+            url: 'http://localhost:51001/api/user',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': $rootScope.token.value
@@ -55,7 +55,7 @@ function(MyException, $q, $http, $rootScope, UserModel, UserPreviewModel) {
 
         $http({
             method: 'DELETE',
-            url: 'http://localhost:8090/api/user/' + username,
+            url: 'http://localhost:51001/api/user/' + username,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': $rootScope.token.value

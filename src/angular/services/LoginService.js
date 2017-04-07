@@ -6,7 +6,7 @@ myApp.factory('LoginService', ['MyException', '$http', '$q', function(MyExceptio
         var defer = $q.defer();
         $http({
             method: 'POST',
-            url: 'http://localhost:8090/api/auth',
+            url: 'http://localhost:51001/api/auth',
             headers: {
                 'Content-Type': 'application/json'
             },

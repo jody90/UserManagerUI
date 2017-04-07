@@ -9,7 +9,7 @@ function(MyException, $q, $http, $rootScope, RightModel, RightModel) {
 
         $http({
             method: 'GET',
-            url: 'http://localhost:8090/api/right/' + rightName,
+            url: 'http://localhost:51001/api/right/' + rightName,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': $rootScope.token.value
@@ -32,7 +32,7 @@ function(MyException, $q, $http, $rootScope, RightModel, RightModel) {
 
         $http({
             method: 'GET',
-            url: 'http://localhost:8090/api/right/',
+            url: 'http://localhost:51001/api/right/',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': $rootScope.token.value
