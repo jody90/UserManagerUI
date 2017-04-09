@@ -2,11 +2,6 @@ myApp.factory('CookieService', ['config', 'MyException', '$cookies', function(co
 
     function CookieService() {}
 
-    // Date.prototype.addHours = function(h) {
-    //     this.setHours(this.getHours() + h);
-    //     return this;
-    // }
-
     Date.prototype.addHours = function(h) {
         this.setMinutes(this.getMinutes() + 20);
         return this;
@@ -30,12 +25,18 @@ myApp.factory('CookieService', ['config', 'MyException', '$cookies', function(co
             username : username
         }
 
-        $cookies.putObject("token", tokenObject, {expires: expires});
+        var tokenJson = JSON.stringify(tokenObject);
+
+        $cookies.put("token", tokenJson, {expires: expires});
+        $cookies.put("authToken", token, {expires: expires});
     }
 
     CookieService.prototype.getTokenCookie = function() {
 
-        var token = $cookies.getObject("token");
+        var tokenJson = $cookies.get("token");
+        if (tokenJson != null) {
+            var token = JSON.parse(tokenJson);
+        }
 
         if (token !== undefined && isTokenActive(token)) {
             return token;
@@ -46,6 +47,5 @@ myApp.factory('CookieService', ['config', 'MyException', '$cookies', function(co
     }
 
     return CookieService;
-
 
 }]);

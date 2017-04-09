@@ -11,7 +11,13 @@ myApp.controller('LoginController', [
 
     $scope.loginModel = new LoginModel();
 
-    $rootScope.test = "jody test";
+    function inIframe () {
+        try {
+            return window.self !== window.top;
+        } catch (e) {
+            return true;
+        }
+    }
 
     $scope.eventListeners = {
         submitLogin : function(loginData) {
@@ -57,7 +63,12 @@ myApp.controller('LoginController', [
                         userService.getUser($rootScope.token.username)
                         .then(function(userModel) {
                             $rootScope.user = userModel;
-                            $location.path("/");
+                            if (inIframe()) {
+                                window.top.location.href = "http://localhost:8090/sortimo/index";
+                            }
+                            else {
+                                $location.path("/");
+                            }
                         })
                         .catch(function(getUserResponse) {
                             showNotification("Bei der Useranfrage lief was schief. Call an Admin!", "error", "Backend Request");
