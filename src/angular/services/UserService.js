@@ -71,6 +71,48 @@ function(MyException, $q, $http, $rootScope, UserModel, UserPreviewModel) {
         return defer.promise;
     }
 
+    UserService.prototype.addUserRole = function(username, roleName) {
+
+        var defer = $q.defer();
+
+        $http({
+            method: 'PUT',
+            url: 'http://localhost:51001/api/user/' + username + '/role/' + roleName,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': $rootScope.token.value
+            }
+        })
+        .then(function successCallback(response) {
+            return defer.resolve(response);
+        }, function errorCallback(response) {
+            defer.reject(response);
+        });
+
+        return defer.promise;
+    }
+
+    UserService.prototype.removeUserRole = function(username, roleName) {
+
+        var defer = $q.defer();
+
+        $http({
+            method: 'DELETE',
+            url: 'http://localhost:51001/api/user/' + username + '/role/' + roleName,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': $rootScope.token.value
+            }
+        })
+        .then(function successCallback(response) {
+            return defer.resolve(response);
+        }, function errorCallback(response) {
+            defer.reject(response);
+        });
+
+        return defer.promise;
+    }
+
     return UserService;
 
 }]);

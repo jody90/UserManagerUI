@@ -5,10 +5,6 @@ function($scope, $q, close, username, UserService, RightService, RoleService) {
     var roleService = new RoleService();
     var rightService = new RightService();
 
-    // $scope.user = null;
-    // $scope.roles = [];
-    // $scope.rights = null;
-
     // REST Schnittstelle nach allen notwendigen Daten anfragen
     var getScopeData = function(username) {
         return $q.all([userService.getUser(username), roleService.getRoles(), rightService.getRights()])
@@ -16,8 +12,13 @@ function($scope, $q, close, username, UserService, RightService, RoleService) {
 
     // Hilfsfunktion: findet raus ob eine id(needle) im haystack vorhanden ist
     var idInArray = function(haystack, needle) {
+        console.log("haystack: ", haystack);
+        console.log("needle: ", needle);
         for (var i = 0; i < haystack.length; i++) {
-            return haystack[i].id == needle;
+
+            // console.log(haystack[i].id + " : " + needle);
+            // console.log(haystack[i].id == needle);
+            return haystack[i].name == needle;
         }
         return false;
     }
@@ -32,32 +33,57 @@ function($scope, $q, close, username, UserService, RightService, RoleService) {
         var tRolesList = [];
         var tRightsList = [];
 
+        console.log("user.roles: ", user.roles);
+
         // herrausfinden welche Rollen der Benutzer bereits hat
         if (user.roles != null && roles != null) {
             for (var i = 0; i < roles.length; i++) {
-                if (!idInArray(user.roles, roles[i].id)) {
+                if (!idInArray(user.roles, roles[i].name)) {
+                    console.log("role: ", roles[i]);
                     tRolesList.push(roles[i]);
                 }
             }
         }
 
         // herrausfinden welche Rechte der Benutzer bereits hat
-        if (user.rights != null && rights != null) {
-            for (var i = 0; i < rights.length; i++) {
-                if (!idInArray(user.rights, rights[i].id)) {
-                    tRightsList.push(rights[i]);
-                }
-            }
-        }
+        // if (user.rights != null && rights != null) {
+        //     for (var i = 0; i < rights.length; i++) {
+        //         if (!idInArray(user.rights, rights[i].id)) {
+        //             tRightsList.push(rights[i]);
+        //         }
+        //     }
+        // }
 
         $scope.user = user;
-        $scope.roles = tRolesList;
-        $scope.rights = tRightsList
+        $scope.possibleRoles = tRolesList;
+        $scope.possibleRights = tRightsList;
+
         return $q.all([user, tRolesList, tRightsList]);
 
-        console.log("$scope.roles: ", $scope.roles);
-
     });
+
+    $scope.addRole = function(roleName) {
+        userService.addUserRole(username, roleName)
+        .then(function(response) {
+            console.log("addUserRole DATA: ", response);
+            for (var i = 0; i < $scope.roles.length; i++) {
+                if ($scope.roles[i].name === roleName) {
+                    delete $scope.roles[i];
+                    break;
+                }
+            }
+
+            for (var i = 0; i < $scope.roles.length; i++) {
+                if ($scope.roles[i].name === roleName) {
+                    $scope.user.roles.push($scope.roles[i]);
+                    break;
+                }
+            }
+        })
+        .catch(function(response) {
+            console.log("addUserRole Error DATA: ", response.data);
+        });
+    }
 
     $scope.close = function(result) {
         if (result) {

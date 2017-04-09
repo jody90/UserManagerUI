@@ -3,12 +3,29 @@
 .active-roles-container,
 .active-rights-container {
     border: 1px solid $light-grey;
-    min-height: 200px;
+    height: 200px;
+    overflow: auto;
 
     & .add-remove-item {
-        padding: 10px 5px;
-        margin: 5px 0;
-        border: 1px solid red;
+        display: flex;
+        justify-content: space-between;
+        margin: 10px auto;
+        box-shadow: 1px 1px 2px $light-grey;
+        border: 1px solid $lighter-grey;
+        box-sizing: border-box;
+        width: 95%;
+
+        & .add-remove-name,
+        & .add-remove-icon {
+            padding: 10px;
+        }
+
+        & .add-remove-icon {
+            cursor: pointer;
+        }
+
     }
+
+
 
 }

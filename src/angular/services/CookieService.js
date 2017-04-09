@@ -3,7 +3,7 @@ myApp.factory('CookieService', ['config', 'MyException', '$cookies', function(co
     function CookieService() {}
 
     Date.prototype.addHours = function(h) {
-        this.setMinutes(this.getMinutes() + 20);
+        this.setHours(this.getHours() + 20);
         return this;
     }
 
@@ -28,6 +28,8 @@ myApp.factory('CookieService', ['config', 'MyException', '$cookies', function(co
         var tokenJson = JSON.stringify(tokenObject);
 
         $cookies.put("token", tokenJson, {expires: expires});
+
+        // Fuer externe Applicationen die den Cookieinhalt nicht deserializen koennen
         $cookies.put("authToken", token, {expires: expires});
     }
 

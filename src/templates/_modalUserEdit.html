@@ -32,17 +32,22 @@
                     <div class="col-xs-6">
                         <strong>Rollen inaktiv</strong>
                         <div class="possible-roles-container">
-                            {{roles}}
-                            <div ng-repeat"role in roles" class="add-remove-item">
-                                {{role.name}}
+                            <div ng-repeat="role in possibleRoles" class="add-remove-item">
+                                <span class="add-remove-name">
+                                    {{role.name}}
+                                </span>
+                                <span ng-click="addRole(role.name)" class="glyphicon add-remove-icon glyphicon-plus align-right" aria-hidden="true"></span>
                             </div>
                         </div>
                     </div>
                     <div class="col-xs-6">
                         <strong>Rollen aktiv</strong>
                         <div class="active-roles-container">
-                            <div ng-repeat"role in user.roles" class="add-remove-item">
-                                {{role}}
+                            <div ng-repeat="role in user.roles" class="add-remove-item">
+                                <span class="add-remove-name">
+                                    {{role.name}}
+                                </span>
+                                <span ng-click="removeRole(role.name)" class="glyphicon add-remove-icon glyphicon-minus" aria-hidden="true"></span>
                             </div>
                         </div>
                    </div>
@@ -52,16 +57,23 @@
                     <div class="col-xs-6">
                         <strong>Rechte inaktiv</strong>
                         <div class="possible-rights-container">
-                            <div ng-repeat"right in rights" class="add-remove-item">
-                                {{right.name}}
+                            <div ng-repeat="right in possibleRights" class="add-remove-item">
+                                <span class="add-remove-name">
+                                    {{right.name}}
+                                </span>
+                                <span ng-click="addRight(right.name)" class="glyphicon add-remove-icon glyphicon-plus" aria-hidden="true"></span>
                             </div>
                         </div>
                     </div>
                     <div class="col-xs-6">
                         <strong>Rechte aktiv</strong>
                         <div class="active-rights-container">
-                            <div ng-repeat"right in user.rights" class="add-remove-item">
-                                {{right}}
+                            <div ng-repeat="right in user.rights" class="add-remove-item">
+                                <span class="add-remove-name">
+                                    {{right.name}}
+                                </span>
+                                <span ng-click="removeRight(right.name)" class="glyphicon add-remove-icon glyphicon-minus" aria-hidden="true"></span>
+
                             </div>
                         </div>
                    </div>
@@ -69,11 +81,11 @@
             </div>
             <div class="modal-footer">
                 <div class="row">
-                    <div class="col-xs-6">
+                    <!-- <div class="col-xs-6">
                         <button type="button" ng-click="close(false)" class="btn btn-block btn-default" data-dismiss="modal">Abbrechen</button>
-                    </div>
-                    <div class="col-xs-6">
-                        <button type="button" ng-click="close(true)" class="btn btn-block btn-success" data-dismiss="modal">Speichern</button>
+                    </div> -->
+                    <div class="col-xs-12">
+                        <button type="button" ng-click="close(true)" class="btn btn-block btn-success" data-dismiss="modal">Fertig</button>
                     </div>
                 </div>
             </div>

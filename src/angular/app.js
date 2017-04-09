@@ -35,7 +35,7 @@ myApp.run(function($rootScope, $location, CookieService, UserService) {
     var cookieService = new CookieService();
 
     // bei jedem routeChangeStart ausfuehren
-    $rootScope.$on( "$routeChangeStart", function(event, next, current) {
+    $rootScope.$on("$routeChangeStart", function(event, next, current) {
 
         if ($rootScope.token == null) {
             $rootScope.token = cookieService.getTokenCookie();
