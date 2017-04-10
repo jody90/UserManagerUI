@@ -84,8 +84,9 @@ function(MyException, $q, $http, $rootScope, UserModel, UserPreviewModel) {
             }
         })
         .then(function successCallback(response) {
-            return defer.resolve(response);
+            defer.resolve(response);
         }, function errorCallback(response) {
+            console.log("addUserRole errorCallback: ", response);
             defer.reject(response);
         });
 
@@ -105,8 +106,9 @@ function(MyException, $q, $http, $rootScope, UserModel, UserPreviewModel) {
             }
         })
         .then(function successCallback(response) {
-            return defer.resolve(response);
+            defer.resolve(response);
         }, function errorCallback(response) {
+            console.log("removeUserRole errorCallback: ", response);
             defer.reject(response);
         });
 
