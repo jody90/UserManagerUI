@@ -1,5 +1,5 @@
-myApp.controller('ModalUserEditController', ['$scope', '$q', 'close', 'username', 'UserService', 'RightService', 'RoleService',
-function($scope, $q, close, username, UserService, RightService, RoleService) {
+myApp.controller('ModalUserEditController', ['$scope', '$q', 'username', 'UserService', 'RightService', 'RoleService',
+function($scope, $q, username, UserService, RightService, RoleService) {
 
     var userService = new UserService();
     var roleService = new RoleService();
@@ -75,59 +75,71 @@ function($scope, $q, close, username, UserService, RightService, RoleService) {
     });
 
     $scope.addRole = function(roleName) {
-        // userService.addUserRole(username, roleName)
-        // .then(function(response) {
 
-            for (var i = 0; i < $scope.possibleRoles.length; i++) {
-                console.log("$scope.possibleRoles[i]: ", $scope.possibleRoles[i]);
-                if ($scope.possibleRoles[i].name === roleName) {
-                    delete $scope.possibleRoles[i];
-                    break;
-                }
-            }
-
+        userService.addUserRole(username, roleName)
+        .then(function(response) {
             for (var i = 0; i < $scope.possibleRoles.length; i++) {
                 if ($scope.possibleRoles[i].name === roleName) {
                     $scope.user.roles.push($scope.possibleRoles[i]);
+                    $scope.possibleRoles.splice(i, 1);
                     break;
                 }
             }
-
-        // })
-        // .catch(function(response) {
-        //     console.log("addUserRole Error DATA: ", response);
-        // });
-    }
-
-    $scope.removeRole = function(roleName) {
-        userService.removeUserRole(username, roleName)
-        .then(function(response) {
-
-            for (var i = 0; i < $scope.user.roles.length; i++) {
-                if ($scope.user.roles[i].name === roleName) {
-                    $scope.possibleRoles.push($scope.user.roles[i]);
-                    break;
-                }
-            }
-
-            for (var i = 0; i < $scope.possibleRoles.length; i++) {
-                if ($scope.user.roles[i].name === roleName) {
-                    delete $scope.user.roles[i];
-                    break;
-                }
-            }
-
         })
         .catch(function(response) {
             console.log("removeRole Error DATA: ", response);
         });
     }
 
-    $scope.close = function(result) {
-        if (result) {
-            result = $scope.modalUser;
-            close(result, 500); // close, but give 500ms for bootstrap to animate
-        }
-    };
+    $scope.removeRole = function(roleName) {
+
+        userService.removeUserRole(username, roleName)
+        .then(function(response) {
+            for (var i = 0; i < $scope.user.roles.length; i++) {
+                if ($scope.user.roles[i].name === roleName) {
+                    $scope.possibleRoles.push($scope.user.roles[i]);
+                    $scope.user.roles.splice(i, 1);
+                    break;
+                }
+            }
+        })
+        .catch(function(response) {
+            console.log("removeRole Error DATA: ", response);
+        });
+    }
+
+    $scope.addRight = function(rightName) {
+
+        userService.addUserRight(username, rightName)
+        .then(function(response) {
+            for (var i = 0; i < $scope.possibleRights.length; i++) {
+                if ($scope.possibleRights[i].name === rightName) {
+                    $scope.user.rights.push($scope.possibleRights[i]);
+                    $scope.possibleRights.splice(i, 1);
+                    break;
+                }
+            }
+        })
+        .catch(function(response) {
+            console.log("removeRole Error DATA: ", response);
+        });
+    }
+
+    $scope.removeRight = function(rightName) {
+
+        userService.removeUserRight(username, rightName)
+        .then(function(response) {
+            for (var i = 0; i < $scope.user.rights.length; i++) {
+                if ($scope.user.rights[i].name === rightName) {
+                    $scope.possibleRights.push($scope.user.rights[i]);
+                    $scope.user.rights.splice(i, 1);
+                    break;
+                }
+            }
+        })
+        .catch(function(response) {
+            console.log("removeRole Error DATA: ", response);
+        });
+    }
 
 }]);

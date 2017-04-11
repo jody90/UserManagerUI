@@ -14,6 +14,12 @@ function($scope, $rootScope, $q, UsersService, ModalService, UserModel) {
         })
 
         $scope.openUserEditModal = function(username) {
+
+            if (username === 'superadmin') {
+                showNotification("Der Benutzer [superadmin] kann nicht editiert werden", "error", undefined, 2000);
+                return false;
+            }
+
             ModalService.showModal({
                 templateUrl: "/src/templates/_modalUserEdit.html",
                 controller: 'ModalUserEditController',
@@ -35,6 +41,12 @@ function($scope, $rootScope, $q, UsersService, ModalService, UserModel) {
         };
 
         $scope.openUserDeleteModal = function(user) {
+
+            if (user.username === 'superadmin') {
+                showNotification("Der Benutzer [superadmin] kann nicht gelöscht werden", "error", undefined, 2000);
+                return false;
+            }
+
             ModalService.showModal({
                 templateUrl: "/src/templates/_modalUserDelete.html",
                 controller: 'ModalUserDeleteController',
