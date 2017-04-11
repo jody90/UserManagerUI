@@ -1,0 +1,33 @@
+<div class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <span class="h4">{{right.name}}</span>
+                <span class="close" aria-hidden="true" data-dismiss="modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input class="form-control" type="text" name="name" ng-model="right.name">
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="form-group">
+                            <label for="description">Beschreibung</label>
+                            <textarea class="form-control" type="text" name="description" ng-model="right.description"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <button type="button" ng-click="close(true)" class="btn btn-block btn-success" data-dismiss="modal">Fertig</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
