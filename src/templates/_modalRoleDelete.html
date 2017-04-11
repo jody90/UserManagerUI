@@ -2,7 +2,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body text-center">
-                <span class="h4">Bist du sicher, dass du <strong>{{modalUser.username}}</strong> wirklich löschen willst?</span>
+                <span class="h4">Bist du sicher, dass du <strong>{{roleName}}</strong> wirklich löschen willst?</span class="h4">
                 <span class="close" aria-hidden="true" data-dismiss="modal">&times;</span>
             </div>
             <div class="modal-footer">
@@ -11,7 +11,7 @@
                         <button type="button" class="btn btn-block btn-default" data-dismiss="modal">Nicht löschen</button>
                     </div>
                     <div class="col-xs-6">
-                        <button type="button" ng-click="deleteUser(true)" class="btn btn-block btn-danger" data-dismiss="modal">Löschen</button>
+                        <button type="button" ng-click="deleteRole(true)" class="btn btn-block btn-danger" data-dismiss="modal">Löschen</button>
                     </div>
                 </div>
             </div>

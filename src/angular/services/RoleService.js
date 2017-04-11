@@ -17,7 +17,6 @@ function(MyException, $q, $http, $rootScope) {
         })
         .then(function successCallback(response) {
             var role = response.data;
-            // console.log("role: ", role);
             defer.resolve(role);
         }, function errorCallback(response) {
             defer.reject(response);
@@ -40,9 +39,74 @@ function(MyException, $q, $http, $rootScope) {
         })
         .then(function successCallback(response) {
             var roles = response.data;
-            // console.log("roles: ", roles);
             defer.resolve(roles);
         }, function errorCallback(response) {
+            defer.reject(response);
+        });
+
+        return defer.promise;
+    }
+
+    RoleService.prototype.deleteRole = function(roleName) {
+
+        var defer = $q.defer();
+
+        $http({
+            method: 'DELETE',
+            url: 'http://localhost:51001/api/role/' + roleName,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': $rootScope.token.value
+            }
+        })
+        .then(function successCallback(response) {
+            console.log("DeleteResponse: ", response);
+            return defer.resolve(response);
+        }, function errorCallback(response) {
+            defer.reject(response);
+        });
+
+        return defer.promise;
+    }
+
+    RoleService.prototype.addRoleRight = function(roleName, rightName) {
+
+        var defer = $q.defer();
+
+        $http({
+            method: 'PUT',
+            url: 'http://localhost:51001/api/role/' + roleName + '/right/' + rightName,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': $rootScope.token.value
+            }
+        })
+        .then(function successCallback(response) {
+            defer.resolve(response);
+        }, function errorCallback(response) {
+            console.log("addRoleRight errorCallback: ", response);
+            defer.reject(response);
+        });
+
+        return defer.promise;
+    }
+
+    RoleService.prototype.removeRoleRight = function(roleName, rightName) {
+
+        var defer = $q.defer();
+
+        $http({
+            method: 'DELETE',
+            url: 'http://localhost:51001/api/role/' + roleName + '/right/' + rightName,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': $rootScope.token.value
+            }
+        })
+        .then(function successCallback(response) {
+            defer.resolve(response);
+        }, function errorCallback(response) {
+            console.log("removeRoleRight errorCallback: ", response);
             defer.reject(response);
         });
 

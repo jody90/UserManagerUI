@@ -1,1 +1,37 @@
-<h1>Roles</h1>
+<div class="row margin-top-lg">
+    <div class="col-xs-12 col-md-3">
+        <div class="form-group">
+            <label for="search-field">Suchbegriff</label>
+            <input type="text" name="search-field" placeholder="Hier könnte dein Suchbegriff stehen..." ng-model="search" class="form-control">
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+
+    <div ng-repeat="role in roles | filter:search" class="col-xs-12 col-sm-6 col-md-4 col-lg-2 margin-top-lg">
+        <div class="pane">
+            <div class="pane-body">
+                <h4>
+                    {{role.name}}
+                </h4>
+            </div>
+            <div class="pane-footer text-right">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <button class="btn btn-block btn-sortimo" ng-class="role.name === 'superadmin' ? 'disabled' : ''" ng-click="openRoleEditModal(role.name)">
+                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                    <div class="col-xs-6">
+                        <button class="btn btn-block btn-danger" ng-class="role.name === 'superadmin' ? 'disabled' : ''" ng-click="openRoleDeleteModal(role.name)">
+                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

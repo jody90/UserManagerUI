@@ -57,7 +57,7 @@
                         </button>
                     </div>
                     <div class="col-xs-6">
-                        <button class="btn btn-block btn-danger" ng-class="user.username === 'superadmin' ? 'disabled' : ''" ng-click="openUserDeleteModal(user)">
+                        <button class="btn btn-block btn-danger" ng-class="user.username === 'superadmin' ? 'disabled' : ''" ng-click="openUserDeleteModal(user.username)">
                             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                         </button>
                     </div>

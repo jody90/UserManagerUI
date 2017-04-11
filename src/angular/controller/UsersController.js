@@ -29,20 +29,12 @@ function($scope, $rootScope, $q, UsersService, ModalService, UserModel) {
             })
             .then(function(modal) {
                 modal.element.modal();
-                modal.close.then(function(result) {
-                    console.log(result);
-                    if (result) {
-                        console.log("ja");
-                        // userService.deleteUser(username);
-                    }
-                    console.log(result);
-                });
             });
         };
 
-        $scope.openUserDeleteModal = function(user) {
+        $scope.openUserDeleteModal = function(username) {
 
-            if (user.username === 'superadmin') {
+            if (username === 'superadmin') {
                 showNotification("Der Benutzer [superadmin] kann nicht gelöscht werden", "error", undefined, 2000);
                 return false;
             }
@@ -51,30 +43,24 @@ function($scope, $rootScope, $q, UsersService, ModalService, UserModel) {
                 templateUrl: "/src/templates/_modalUserDelete.html",
                 controller: 'ModalUserDeleteController',
                 inputs: {
-                    modalUser : user
+                    username : username
                 }
             })
             .then(function(modal) {
                 modal.element.modal();
-                modal.close.then(function(deleteUser) {
+                modal.close.then(function(username) {
 
-                    if (deleteUser != null || deleteUser.trim() !== "") {
-
-                        // User loeschen und aktuelle Liste der User holen
-                        userService.deleteUser(deleteUser)
-                        .then(function(response) {
-                            userService.getUsers()
-                            .then(function(users) {
-                                $scope.users = users;
-                            })
-                            .catch(function(usersResponse) {
-                                console.error("usersResponse: ", usersResponse);
-                            })
-                        })
-                        .catch(function(usersResponse) {
-                            console.error("userDeleteResponse: ", usersResponse);
-                        })
-                    }
+                    // User loeschen und aktuelle Liste der User holen
+                    userService.deleteUser(username)
+                    .then(function(response) {
+                        for (var i = 0; i < $scope.users.length; i++) {
+                            if ($scope.users[i].username === username) {
+                                $scope.users.splice(i, 1);
+                                break;
+                            }
+                        }
+                        showNotification("Der Benutzer [" + username + "] wurde erfolgreich gelöscht.", "success", undefined, 2000);
+                    })
 
                 });
             });

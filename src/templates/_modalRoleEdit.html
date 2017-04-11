@@ -1,0 +1,58 @@
+<div class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <span class="h4">{{role.name}}</span>
+                <span class="close" aria-hidden="true" data-dismiss="modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input class="form-control" type="text" name="name" ng-model="role.name">
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="form-group">
+                            <label for="description">Beschreibung</label>
+                            <textarea class="form-control" type="text" name="description" ng-model="role.description"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-6">
+                        <strong>Rechte inaktiv</strong>
+                        <div class="possible-rights-container">
+                            <div ng-repeat="right in possibleRights" class="add-remove-item">
+                                <span class="add-remove-name">
+                                    {{right.name}}
+                                </span>
+                                <span ng-click="addRight(right.name)" class="glyphicon add-remove-icon glyphicon-plus" aria-hidden="true"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <strong>Rechte aktiv</strong>
+                        <div class="active-rights-container">
+                            <div ng-repeat="right in role.rights" class="add-remove-item">
+                                <span class="add-remove-name">
+                                    {{right.name}}
+                                </span>
+                                <span ng-click="removeRight(right.name)" class="glyphicon add-remove-icon glyphicon-minus" aria-hidden="true"></span>
+                            </div>
+                        </div>
+                   </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <button type="button" ng-click="close(true)" class="btn btn-block btn-success" data-dismiss="modal">Fertig</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

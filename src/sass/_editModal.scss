@@ -18,6 +18,7 @@
         & .add-remove-name,
         & .add-remove-icon {
             padding: 10px;
+            word-break: break-word;
         }
 
         & .add-remove-icon {
@@ -25,7 +26,5 @@
         }
 
     }
-
-
 
 }

@@ -1,12 +1,9 @@
-myApp.controller('ModalUserDeleteController', ['$scope', 'close', 'modalUser', function($scope, close, modalUser) {
+myApp.controller('ModalUserDeleteController', ['$scope', 'close', 'username', function($scope, close, username) {
 
-    $scope.modalUser = modalUser;
+    $scope.username = username;
 
-    $scope.close = function(result) {
-        if (result) {
-            result = $scope.modalUser.getUsername();
-            close(result, 500); // close, but give 500ms for bootstrap to animate
-        }
+    $scope.deleteUser = function(result) {
+        close(username, 500); // close, but give 500ms for bootstrap to animate
     };
 
 }]);

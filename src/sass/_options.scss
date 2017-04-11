@@ -33,6 +33,11 @@
             margin-right: $distance-lg;
         }
 
+        & a {
+            color: $pane-font-color;
+            text-decoration: none;
+        }
+
     }
 }
 
