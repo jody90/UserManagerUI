@@ -9,9 +9,22 @@ function($scope, $q, username, UserService, RightService, RoleService) {
     $scope.possibleRoles = null;
     $scope.possibleRights = null;
 
+    var buildNewUser = function() {
+        var newUser = {
+            rights: [],
+            roles: []
+        };
+        return newUser;
+    }
+
     // REST Schnittstelle nach allen notwendigen Daten anfragen
     var getScopeData = function(username) {
-        return $q.all([userService.getUser(username), roleService.getRoles(), rightService.getRights()])
+        if (username == null) {
+            return $q.all([buildNewUser(), roleService.getRoles(), rightService.getRights()])
+        }
+        else {
+            return $q.all([userService.getUser(username), roleService.getRoles(), rightService.getRights()])
+        }
     }
 
     // Hilfsfunktion: findet raus ob eine id(needle) im haystack vorhanden ist
@@ -29,9 +42,9 @@ function($scope, $q, username, UserService, RightService, RoleService) {
         var tRolesList = [];
 
         // herrausfinden welche Rollen der Benutzer bereits hat
-        if (userRoles != null && roles != null) {
+        if (roles != null) {
             for (var i = 0; i < roles.length; i++) {
-                if (!idInArray(userRoles, roles[i].id)) {
+                if (userRoles == null || !idInArray(userRoles, roles[i].id)) {
                     tRolesList.push(roles[i]);
                 }
             }
@@ -45,9 +58,9 @@ function($scope, $q, username, UserService, RightService, RoleService) {
         var tRightsList = [];
 
         // herrausfinden welche Rechte der Benutzer bereits hat
-        if (userRights != null && rights != null) {
+        if (rights != null) {
             for (var i = 0; i < rights.length; i++) {
-                if (!idInArray(userRights, rights[i].id)) {
+                if (userRights == null || !idInArray(userRights, rights[i].id)) {
                     tRightsList.push(rights[i]);
                 }
             }
@@ -74,72 +87,95 @@ function($scope, $q, username, UserService, RightService, RoleService) {
 
     });
 
+    var findAndRemoveFromScopeAddToUser = function(scopeVariable, type, needle) {
+        for (var i = 0; i < $scope[scopeVariable].length; i++) {
+            if ($scope[scopeVariable][i].name === needle) {
+                $scope.user[type].push($scope[scopeVariable][i]);
+                $scope[scopeVariable].splice(i, 1);
+                break;
+            }
+        }
+    }
+
+    var findAndRemoveFromUserAddToScope = function(scopeVariable, type, needle) {
+        for (var i = 0; i < $scope.user[type].length; i++) {
+            if ($scope.user[type][i].name === needle) {
+                $scope[scopeVariable].push($scope.user[type][i]);
+                $scope.user[type].splice(i, 1);
+                break;
+            }
+        }
+    }
+
     $scope.addRole = function(roleName) {
 
-        userService.addUserRole(username, roleName)
-        .then(function(response) {
-            for (var i = 0; i < $scope.possibleRoles.length; i++) {
-                if ($scope.possibleRoles[i].name === roleName) {
-                    $scope.user.roles.push($scope.possibleRoles[i]);
-                    $scope.possibleRoles.splice(i, 1);
-                    break;
-                }
-            }
-        })
-        .catch(function(response) {
-            console.log("removeRole Error DATA: ", response);
-        });
+        if (username != null) {
+            userService.addUserRole(username, roleName)
+            .then(function(response) {
+                findAndRemoveFromScopeAddToUser("possibleRoles", "roles", roleName);
+            })
+            .catch(function(response) {
+                console.log("removeRole Error DATA: ", response);
+            });
+        }
+        else {
+            findAndRemoveFromScopeAddToUser("possibleRoles", "roles", roleName);
+        }
     }
 
     $scope.removeRole = function(roleName) {
 
-        userService.removeUserRole(username, roleName)
-        .then(function(response) {
-            for (var i = 0; i < $scope.user.roles.length; i++) {
-                if ($scope.user.roles[i].name === roleName) {
-                    $scope.possibleRoles.push($scope.user.roles[i]);
-                    $scope.user.roles.splice(i, 1);
-                    break;
-                }
-            }
-        })
-        .catch(function(response) {
-            console.log("removeRole Error DATA: ", response);
-        });
+        if (username != null) {
+            userService.removeUserRole(username, roleName)
+            .then(function(response) {
+                findAndRemoveFromUserAddToScope("possibleRoles", "roles", roleName);
+            })
+            .catch(function(response) {
+                console.log("removeRole Error DATA: ", response);
+            });
+        }
+        else {
+            findAndRemoveFromUserAddToScope("possibleRoles", "roles", roleName);
+
+        }
     }
 
     $scope.addRight = function(rightName) {
-
-        userService.addUserRight(username, rightName)
-        .then(function(response) {
-            for (var i = 0; i < $scope.possibleRights.length; i++) {
-                if ($scope.possibleRights[i].name === rightName) {
-                    $scope.user.rights.push($scope.possibleRights[i]);
-                    $scope.possibleRights.splice(i, 1);
-                    break;
-                }
-            }
-        })
-        .catch(function(response) {
-            console.log("removeRole Error DATA: ", response);
-        });
+        if (username != null) {
+            userService.addUserRight(username, rightName)
+            .then(function(response) {
+                findAndRemoveFromScopeAddToUser("possibleRights", "rights", rightName);
+            })
+            .catch(function(response) {
+                console.log("removeRole Error DATA: ", response);
+            });
+        }
+        else {
+            findAndRemoveFromScopeAddToUser("possibleRights", "rights", rightName);
+        }
     }
 
     $scope.removeRight = function(rightName) {
 
-        userService.removeUserRight(username, rightName)
-        .then(function(response) {
-            for (var i = 0; i < $scope.user.rights.length; i++) {
-                if ($scope.user.rights[i].name === rightName) {
-                    $scope.possibleRights.push($scope.user.rights[i]);
-                    $scope.user.rights.splice(i, 1);
-                    break;
-                }
-            }
-        })
-        .catch(function(response) {
-            console.log("removeRole Error DATA: ", response);
-        });
+        if (username != null) {
+            userService.removeUserRight(username, rightName)
+            .then(function(response) {
+                findAndRemoveFromUserAddToScope("possibleRights", "rights", rightName);
+            })
+            .catch(function(response) {
+                console.log("removeRole Error DATA: ", response);
+            });
+        }
+        else {
+            findAndRemoveFromUserAddToScope("possibleRights", "rights", rightName);
+        }
+    }
+
+    $scope.close = function(save) {
+        if (save) {
+            console.log("$scope.user: ", $scope.user);
+            userService.addUser($scope.user);
+        }
     }
 
 }]);

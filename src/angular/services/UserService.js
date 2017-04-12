@@ -3,6 +3,29 @@ function(MyException, $q, $http, $rootScope, UserModel, UserPreviewModel) {
 
     function UserService() {}
 
+    UserService.prototype.addUser = function(user) {
+
+        var defer = $q.defer();
+
+        $http({
+            method: 'POST',
+            url: 'http://localhost:51001/api/user/',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': $rootScope.token.value
+            },
+            data: user
+        })
+        .then(function successCallback(response) {
+            console.log("PostResponse: ", response);
+            return defer.resolve(response);
+        }, function errorCallback(response) {
+            defer.reject(response);
+        });
+
+        return defer.promise;
+    }
+
     UserService.prototype.getUser = function(username) {
 
         var defer = $q.defer();

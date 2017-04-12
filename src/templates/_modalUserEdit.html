@@ -2,7 +2,8 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header text-center">
-                <span class="h4">{{user.username}}</span>
+                <span class="h4" ng-if="user.username != null">{{user.username}}</span>
+                <span class="h4" ng-if="user.username == null">Neuer Benutzer</span>
                 <span class="close" aria-hidden="true" data-dismiss="modal">&times;</span>
             </div>
             <div class="modal-body">
