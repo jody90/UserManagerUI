@@ -8,30 +8,24 @@
 </div>
 
 
-<div class="row">
-
-    <div ng-repeat="role in roles | filter:search" class="col-xs-12 col-sm-6 col-md-4 col-lg-2 margin-top-lg">
-        <div class="pane">
-            <div class="pane-body">
-                <h4>
+<div class="element-row row">
+    <div ng-repeat="role in roles | filter:search" class="col-xs-12 col-md-6 col-lg-4 margin-top-lg">
+        <div class="element-column">
+            <div class="row">
+                <div class="col-xs-12 col-lg-8 h4">
                     {{role.name}}
-                </h4>
-            </div>
-            <div class="pane-footer text-right">
-                <div class="row">
-                    <div class="col-xs-6">
-                        <button class="btn btn-block btn-sortimo" ng-class="role.name === 'superadmin' ? 'disabled' : ''" ng-click="openRoleEditModal(role.name)">
-                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                        </button>
-                    </div>
-                    <div class="col-xs-6">
-                        <button class="btn btn-block btn-danger" ng-class="role.name === 'superadmin' ? 'disabled' : ''" ng-click="openRoleDeleteModal(role.name)">
-                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                        </button>
-                    </div>
+                </div>
+                <div class="col-xs-6 col-lg-2">
+                    <button class="btn btn-sortimo" ng-click="openRightEditModal(role.name)">
+                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                    </button>
+                </div>
+                <div class="col-xs-6 col-lg-2">
+                    <button class="btn btn-danger" ng-click="openRightDeleteModal(role.name)">
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                    </button>
                 </div>
             </div>
         </div>
     </div>
-
 </div>

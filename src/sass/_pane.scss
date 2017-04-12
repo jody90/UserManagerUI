@@ -1,31 +1,35 @@
 .pane {
-    box-shadow: 3px 3px 3px rgba(230, 230, 255, .4);
-    padding: 10px;
+    padding: $distance-md;
     box-sizing: border-box;
-    background-color: rgba(255, 255, 255, .7);
+    background-color: $background-white-transparent;
     color: $pane-font-color;
-    // background: repeating-linear-gradient(-45deg, rgba(225, 245, 255, .6), rgba(200, 220, 255, .6) 1px);
+    transition: $transition-all;
+
+    &:hover {
+        color: $pane-font-color-hover;
+        background-color: $background-white-transparent-hover;
+    }
 
     & .pane-header {
         font-size: 1.4em;
-        margin-bottom: 10px;
+        margin-bottom: $distance-md;
         border-bottom: 1px solid #fff;
-        padding-bottom: 10px;
+        padding-bottom: $distance-md;
         box-sizing: border-box;
     }
 
     & .pane-footer {
         font-size: 1.4em;
-        margin-top: 10px;
+        margin-top: $distance-md;
         border-top: 1px solid #fff;
-        padding-top: 10px;
+        padding-top: $distance-md;
         box-sizing: border-box;
     }
 
 }
 
 .black-pane {
-    padding: 10px;
+    padding: $distance-md;
     background-color: rgba(20, 20, 20, .4);
     box-shadow: 3px 3px 3px rgba(40, 40, 60, .4);
 }

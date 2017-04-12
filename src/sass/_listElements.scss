@@ -1,0 +1,21 @@
+.element-row {
+    & .element-column {
+        background-color: $background-white-transparent;
+        color: $pane-font-color;
+        padding: $distance-lg;
+        box-sizing: border-box;
+        transition: $transition-all;
+
+        &:hover {
+            color: $pane-font-color-hover;
+            background-color: $background-white-transparent-hover;
+        }
+    }
+}
+
+@media (max-width: $screen-md-max) {
+    .element-row .element-column .btn {
+        display: block;
+        width: 100%;
+    }
+}
