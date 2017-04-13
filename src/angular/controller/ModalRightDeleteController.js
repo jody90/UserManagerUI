@@ -1,9 +1,9 @@
-myApp.controller('ModalRightDeleteController', ['$scope', 'rightName', 'close', function($scope, rightName, close) {
+myApp.controller('ModalRightDeleteController', ['$scope', 'rightname', 'close', function($scope, rightname, close) {
 
-    $scope.rightName = rightName;
+    $scope.rightname = rightname;
 
     $scope.deleteRight = function(result) {
-        close(rightName, 500); // close, but give 500ms for bootstrap to animate
+        close(rightname, 500); // close, but give 500ms for bootstrap to animate
     };
 
 }]);

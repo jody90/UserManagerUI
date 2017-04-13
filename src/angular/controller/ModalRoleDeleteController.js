@@ -1,9 +1,9 @@
-myApp.controller('ModalRoleDeleteController', ['$scope', 'roleName', 'close', function($scope, roleName, close) {
+myApp.controller('ModalRoleDeleteController', ['$scope', 'rolename', 'close', function($scope, rolename, close) {
 
-    $scope.roleName = roleName;
+    $scope.rolename = rolename;
 
     $scope.deleteRole = function(result) {
-        close(roleName, 500); // close, but give 500ms for bootstrap to animate
+        close(rolename, 500); // close, but give 500ms for bootstrap to animate
     };
 
 }]);

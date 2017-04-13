@@ -11,41 +11,54 @@ function($scope, $rootScope, $q, RightService, ModalService) {
             console.error("rightsResponse ERROR: ", rightsResponse);
         })
 
-        $scope.openRightEditModal = function(rightName) {
+        $scope.openRightEditModal = function(rightname) {
 
             ModalService.showModal({
                 templateUrl: "/src/templates/_modalRightEdit.html",
                 controller: 'ModalRightEditController',
                 inputs: {
-                    rightName : rightName
+                    rightname : rightname
                 }
             })
             .then(function(modal) {
                 modal.element.modal();
+                modal.close.then(function(closeParams) {
+                    if (closeParams.oldRight === undefined) {
+                        $scope.rights.push(closeParams.right)
+                    }
+                    else {
+                        for (var i = 0; i < $scope.rights.length; i++) {
+                            if ($scope.rights[i].name === closeParams.oldRight) {
+                                $scope.rights.splice(i, 1);
+                                $scope.rights.push(closeParams.right);
+                            }
+                        }
+                    }
+                })
             });
         };
 
-        $scope.openRightDeleteModal = function(rightName) {
+        $scope.openRightDeleteModal = function(rightname) {
 
             ModalService.showModal({
                 templateUrl: "/src/templates/_modalRightDelete.html",
                 controller: 'ModalRightDeleteController',
                 inputs: {
-                    rightName : rightName
+                    rightname : rightname
                 }
             })
             .then(function(modal) {
                 modal.element.modal();
-                modal.close.then(function(rightName) {
-                    rightService.deleteRight(rightName)
+                modal.close.then(function(rightname) {
+                    rightService.deleteRight(rightname)
                     .then(function() {
                         for (var i = 0; i < $scope.rights.length; i++) {
-                            if ($scope.rights[i].name === rightName) {
+                            if ($scope.rights[i].name === rightname) {
                                 $scope.rights.splice(i, 1);
                                 break;
                             }
                         }
-                        showNotification("Das Recht [" + rightName + "] wurde erfolgreich gelöscht.", "success", undefined, 2000);
+                        showNotification("Das Recht [" + rightname + "] wurde erfolgreich gelöscht.", "success", undefined, 2000);
                     })
                 })
             });

@@ -3,6 +3,29 @@ function(MyException, $q, $http, $rootScope, RightModel, RightModel) {
 
     function RightService() {}
 
+    RightService.prototype.addRight = function(right) {
+
+        var defer = $q.defer();
+
+        $http({
+            method: 'POST',
+            url: 'http://localhost:51001/api/right/',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': $rootScope.token.value
+            },
+            data: right
+        })
+        .then(function successCallback(response) {
+            console.log("PostResponse: ", response);
+            return defer.resolve(response);
+        }, function errorCallback(response) {
+            defer.reject(response);
+        });
+
+        return defer.promise;
+    }
+
     RightService.prototype.getRight = function(rightName) {
 
         var defer = $q.defer();
@@ -65,6 +88,29 @@ function(MyException, $q, $http, $rootScope, RightModel, RightModel) {
             console.log("DeleteResponse: ", response);
             return defer.resolve(response);
         }, function errorCallback(response) {
+            defer.reject(response);
+        });
+
+        return defer.promise;
+    }
+
+    RightService.prototype.updateRight = function(right, rightname) {
+
+        var defer = $q.defer();
+
+        $http({
+            method: 'PUT',
+            url: 'http://localhost:51001/api/right/' + rightname,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': $rootScope.token.value
+            },
+            data : right
+        })
+        .then(function successCallback(response) {
+            defer.resolve(response);
+        }, function errorCallback(response) {
+            console.log("updateRight errorCallback: ", response);
             defer.reject(response);
         });
 
