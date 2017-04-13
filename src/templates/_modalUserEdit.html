@@ -38,7 +38,7 @@
                                 <span class="add-remove-name">
                                     {{role.name}}
                                 </span>
-                                <span ng-click="addRole(role.name)" class="glyphicon add-remove-icon glyphicon-plus align-right" aria-hidden="true"></span>
+                                <span ng-click="addRemoveRolesRights('possibleRoles', 'roles', role.name, true)" class="glyphicon add-remove-icon glyphicon-plus align-right" aria-hidden="true"></span>
                             </div>
                         </div>
                     </div>
@@ -49,7 +49,7 @@
                                 <span class="add-remove-name">
                                     {{role.name}}
                                 </span>
-                                <span ng-click="removeRole(role.name)" class="glyphicon add-remove-icon glyphicon-minus" aria-hidden="true"></span>
+                                <span ng-click="addRemoveRolesRights('possibleRoles', 'roles', role.name, false)" class="glyphicon add-remove-icon glyphicon-minus" aria-hidden="true"></span>
                             </div>
                         </div>
                    </div>
@@ -63,7 +63,7 @@
                                 <span class="add-remove-name">
                                     {{right.name}}
                                 </span>
-                                <span ng-click="addRight(right.name)" class="glyphicon add-remove-icon glyphicon-plus" aria-hidden="true"></span>
+                                <span ng-click="addRemoveRolesRights('possibleRights', 'rights', right.name, true)" class="glyphicon add-remove-icon glyphicon-plus" aria-hidden="true"></span>
                             </div>
                         </div>
                     </div>
@@ -74,7 +74,7 @@
                                 <span class="add-remove-name">
                                     {{right.name}}
                                 </span>
-                                <span ng-click="removeRight(right.name)" class="glyphicon add-remove-icon glyphicon-minus" aria-hidden="true"></span>
+                                <span ng-click="addRemoveRolesRights('possibleRights', 'rights', right.name, false)" class="glyphicon add-remove-icon glyphicon-minus" aria-hidden="true"></span>
                             </div>
                         </div>
                    </div>
@@ -82,8 +82,11 @@
             </div>
             <div class="modal-footer">
                 <div class="row">
-                    <div class="col-xs-12">
-                        <button type="button" ng-click="close(true)" class="btn btn-block btn-success" data-dismiss="modal">Fertig</button>
+                    <div class="col-xs-6">
+                        <button type="button" class="btn btn-block btn-danger" data-dismiss="modal">Abbrechen</button>
+                    </div>
+                    <div class="col-xs-6">
+                        <button type="button" ng-click="save()" class="btn btn-block btn-success" data-dismiss="modal">Speichern</button>
                     </div>
                 </div>
             </div>

@@ -87,94 +87,33 @@ function($scope, $q, username, UserService, RightService, RoleService) {
 
     });
 
-    var findAndRemoveFromScopeAddToUser = function(scopeVariable, type, needle) {
-        for (var i = 0; i < $scope[scopeVariable].length; i++) {
-            if ($scope[scopeVariable][i].name === needle) {
-                $scope.user[type].push($scope[scopeVariable][i]);
-                $scope[scopeVariable].splice(i, 1);
-                break;
+    $scope.addRemoveRolesRights = function(scopeVariable, type, needle, addRemove) {
+        if (addRemove) {
+            for (var i = 0; i < $scope[scopeVariable].length; i++) {
+                if ($scope[scopeVariable][i].name === needle) {
+                    $scope.user[type].push($scope[scopeVariable][i]);
+                    $scope[scopeVariable].splice(i, 1);
+                    break;
+                }
+            }
+        }
+        else {
+            for (var i = 0; i < $scope.user[type].length; i++) {
+                if ($scope.user[type][i].name === needle) {
+                    $scope[scopeVariable].push($scope.user[type][i]);
+                    $scope.user[type].splice(i, 1);
+                    break;
+                }
             }
         }
     }
 
-    var findAndRemoveFromUserAddToScope = function(scopeVariable, type, needle) {
-        for (var i = 0; i < $scope.user[type].length; i++) {
-            if ($scope.user[type][i].name === needle) {
-                $scope[scopeVariable].push($scope.user[type][i]);
-                $scope.user[type].splice(i, 1);
-                break;
-            }
-        }
-    }
-
-    $scope.addRole = function(roleName) {
-
-        if (username != null) {
-            userService.addUserRole(username, roleName)
-            .then(function(response) {
-                findAndRemoveFromScopeAddToUser("possibleRoles", "roles", roleName);
-            })
-            .catch(function(response) {
-                console.log("removeRole Error DATA: ", response);
-            });
-        }
-        else {
-            findAndRemoveFromScopeAddToUser("possibleRoles", "roles", roleName);
-        }
-    }
-
-    $scope.removeRole = function(roleName) {
-
-        if (username != null) {
-            userService.removeUserRole(username, roleName)
-            .then(function(response) {
-                findAndRemoveFromUserAddToScope("possibleRoles", "roles", roleName);
-            })
-            .catch(function(response) {
-                console.log("removeRole Error DATA: ", response);
-            });
-        }
-        else {
-            findAndRemoveFromUserAddToScope("possibleRoles", "roles", roleName);
-
-        }
-    }
-
-    $scope.addRight = function(rightName) {
-        if (username != null) {
-            userService.addUserRight(username, rightName)
-            .then(function(response) {
-                findAndRemoveFromScopeAddToUser("possibleRights", "rights", rightName);
-            })
-            .catch(function(response) {
-                console.log("removeRole Error DATA: ", response);
-            });
-        }
-        else {
-            findAndRemoveFromScopeAddToUser("possibleRights", "rights", rightName);
-        }
-    }
-
-    $scope.removeRight = function(rightName) {
-
-        if (username != null) {
-            userService.removeUserRight(username, rightName)
-            .then(function(response) {
-                findAndRemoveFromUserAddToScope("possibleRights", "rights", rightName);
-            })
-            .catch(function(response) {
-                console.log("removeRole Error DATA: ", response);
-            });
-        }
-        else {
-            findAndRemoveFromUserAddToScope("possibleRights", "rights", rightName);
-        }
-    }
-
-    $scope.close = function(save) {
-        if (save) {
-            console.log("$scope.user: ", $scope.user);
+    $scope.save = function() {
+        if (username == null) {
             userService.addUser($scope.user);
+        }
+        else {
+            userService.updateUser($scope.user);
         }
     }
 
