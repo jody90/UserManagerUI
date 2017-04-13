@@ -136,7 +136,7 @@ function($scope, $q, close, username, UserService, RightService, RoleService) {
                         user : tUser
                     }
                     showNotification("Der Benutzer [" + tUser.username + "] wurde erfolgreich angelegt.", "success", "Neuer Benutzer", 4000);
-                    close(closeParams);
+                    close(closeParams, 200);
                 })
                 .catch(function(response) {
                     console.error("UserNew ERROR: ", response);
@@ -146,9 +146,8 @@ function($scope, $q, close, username, UserService, RightService, RoleService) {
                 userService.updateUser($scope.user, username)
                 .then(function(response) {
                     var tUser = response.data
-                    var tUsername = tUser.username === username ? undefined : username;
                     var closeParams = {
-                        oldUser : tUsername,
+                        oldUser : username,
                         user : tUser
                     }
                     showNotification("Der Benutzer [" + tUser.username + "] wurde erfolgreich aktualisiert.", "success", "Benutzer aktualisiert", 4000);

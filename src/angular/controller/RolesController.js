@@ -11,9 +11,9 @@ function($scope, $rootScope, $q, RoleService, ModalService) {
             console.error("rolesResponse ERROR: ", rolesResponse);
         })
 
-        $scope.openRoleEditModal = function(roleName) {
+        $scope.openRoleEditModal = function(rolename) {
 
-            if (roleName === 'superadmin') {
+            if (rolename === 'superadmin') {
                 showNotification("Die Rolle [superadmin] kann nicht editiert werden", "error", undefined, 2000);
                 return false;
             }
@@ -22,17 +22,30 @@ function($scope, $rootScope, $q, RoleService, ModalService) {
                 templateUrl: "/src/templates/_modalRoleEdit.html",
                 controller: 'ModalRoleEditController',
                 inputs: {
-                    roleName : roleName
+                    rolename : rolename
                 }
             })
             .then(function(modal) {
                 modal.element.modal();
+                modal.close.then(function(closeParams) {
+                    if (closeParams.oldRole === undefined) {
+                        $scope.roles.push(closeParams.role)
+                    }
+                    else {
+                        for (var i = 0; i < $scope.roles.length; i++) {
+                            if ($scope.roles[i].name === closeParams.oldRole) {
+                                $scope.roles.splice(i, 1);
+                                $scope.roles.push(closeParams.role);
+                            }
+                        }
+                    }
+                })
             });
         };
 
-        $scope.openRoleDeleteModal = function(roleName) {
+        $scope.openRoleDeleteModal = function(rolename) {
 
-            if (roleName === 'superadmin') {
+            if (rolename === 'superadmin') {
                 showNotification("Die Rolle [superadmin] kann nicht gelöscht werden", "error", undefined, 2000);
                 return false;
             }
@@ -41,21 +54,21 @@ function($scope, $rootScope, $q, RoleService, ModalService) {
                 templateUrl: "/src/templates/_modalRoleDelete.html",
                 controller: 'ModalRoleDeleteController',
                 inputs: {
-                    roleName : roleName
+                    rolename : rolename
                 }
             })
             .then(function(modal) {
                 modal.element.modal();
-                modal.close.then(function(roleName) {
-                    roleService.deleteRole(roleName)
+                modal.close.then(function(rolename) {
+                    roleService.deleteRole(rolename)
                     .then(function() {
                         for (var i = 0; i < $scope.roles.length; i++) {
-                            if ($scope.roles[i].name === roleName) {
+                            if ($scope.roles[i].name === rolename) {
                                 $scope.roles.splice(i, 1);
                                 break;
                             }
                         }
-                        showNotification("Die Rolle [" + roleName + "] wurde erfolgreich gelöscht.", "success", undefined, 2000);
+                        showNotification("Die Rolle [" + rolename + "] wurde erfolgreich gelöscht.", "success", undefined, 2000);
                     })
                 })
             });

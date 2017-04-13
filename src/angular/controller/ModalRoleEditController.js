@@ -1,14 +1,26 @@
-myApp.controller('ModalRoleEditController', ['$scope', '$q', 'roleName', 'RightService', 'RoleService',
-function($scope, $q, roleName, RightService, RoleService) {
+myApp.controller('ModalRoleEditController', ['$scope', '$q', 'close', 'rolename', 'RightService', 'RoleService',
+function($scope, $q, close, rolename, RightService, RoleService) {
 
     var roleService = new RoleService();
     var rightService = new RightService();
 
     $scope.possibleRights = null;
 
+    var buildNewRole = function() {
+        var newRole = {
+            rights: []
+        };
+        return newRole;
+    }
+
     // REST Schnittstelle nach allen notwendigen Daten anfragen
-    var getScopeData = function(roleName) {
-        return $q.all([roleService.getRole(roleName), rightService.getRights()])
+    var getScopeData = function(rolename) {
+        if (rolename == null) {
+            return $q.all([buildNewRole(), rightService.getRights()])
+        }
+        else {
+            return $q.all([roleService.getRole(rolename), rightService.getRights()])
+        }
     }
 
     // Hilfsfunktion: findet raus ob eine id(needle) im haystack vorhanden ist
@@ -38,7 +50,7 @@ function($scope, $q, roleName, RightService, RoleService) {
     }
 
     // REST Anfrage verarbeiten
-    getScopeData(roleName)
+    getScopeData(rolename)
     .then(function(data) {
 
         var role = data[0];
@@ -53,38 +65,77 @@ function($scope, $q, roleName, RightService, RoleService) {
 
     });
 
-    $scope.addRight = function(rightName) {
-
-        roleService.addRoleRight(roleName, rightName)
-        .then(function(response) {
-            for (var i = 0; i < $scope.possibleRights.length; i++) {
-                if ($scope.possibleRights[i].name === rightName) {
-                    $scope.role.rights.push($scope.possibleRights[i]);
-                    $scope.possibleRights.splice(i, 1);
+    $scope.addRemoveRolesRights = function(scopeVariable, type, needle, addRemove) {
+        if (addRemove) {
+            for (var i = 0; i < $scope[scopeVariable].length; i++) {
+                if ($scope[scopeVariable][i].name === needle) {
+                    $scope.role[type].push($scope[scopeVariable][i]);
+                    $scope[scopeVariable].splice(i, 1);
                     break;
                 }
             }
-        })
-        .catch(function(response) {
-            console.log("removeRole Error DATA: ", response);
-        });
+        }
+        else {
+            for (var i = 0; i < $scope.role[type].length; i++) {
+                if ($scope.role[type][i].name === needle) {
+                    $scope[scopeVariable].push($scope.role[type][i]);
+                    $scope.role[type].splice(i, 1);
+                    break;
+                }
+            }
+        }
     }
 
-    $scope.removeRight = function(rightName) {
+    var notNull = function(data, type) {
 
-        roleService.removeRoleRight(roleName, rightName)
-        .then(function(response) {
-            for (var i = 0; i < $scope.role.rights.length; i++) {
-                if ($scope.role.rights[i].name === rightName) {
-                    $scope.possibleRights.push($scope.role.rights[i]);
-                    $scope.role.rights.splice(i, 1);
-                    break;
-                }
+        if (data == null) {
+            showNotification(type + ": ist leer!", "error", "Fehler", 2000);
+            return false;
+        }
+
+        if (data.trim() == "") {
+            showNotification(type + ": ist leer!", "error", "Fehler", 2000);
+            return false;
+        }
+
+        return true;
+
+    }
+
+    $scope.save = function() {
+
+        if (notNull($scope.role.name, "Name Rolle") && notNull($scope.role.description, "Beschreibung Rolle")) {
+            if (rolename == null) {
+                roleService.addRole($scope.role)
+                .then(function(response) {
+                    var tRole = response.data;
+                    var closeParams = {
+                        oldRole : undefined,
+                        role : tRole
+                    }
+                    showNotification("Die Rolle [" + tRole.name + "] wurde erfolgreich angelegt.", "success", "Neue Rolle", 4000);
+                    close(closeParams, 200);
+                })
+                .catch(function(response) {
+                    console.error("UserNew ERROR: ", response);
+                });
             }
-        })
-        .catch(function(response) {
-            console.log("removeRole Error DATA: ", response);
-        });
+            else {
+                roleService.updateRole($scope.role, rolename)
+                .then(function(response) {
+                    var tRole = response.data
+                    var closeParams = {
+                        oldRole : rolename,
+                        role : tRole
+                    }
+                    showNotification("Die Rolle [" + tRole.name + "] wurde erfolgreich aktualisiert.", "success", "Rolle aktualisiert", 4000);
+                    close(closeParams, 200);
+                })
+                .catch(function(response) {
+                    console.error("UserNew ERROR: ", response);
+                });
+            }
+        }
     }
 
 }]);
