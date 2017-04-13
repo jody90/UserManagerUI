@@ -20,7 +20,7 @@
         <div class="element-column">
             <div class="row">
                 <div class="col-xs-12 col-lg-8 h4">
-                    {{role.name}}
+                    <span class="glyphicon glyphicon-info-sign info-tooltip-icon blue-tooltip" title="{{role.description}}" data-toggle="tooltip" data-placement="top"></span>{{role.name}}
                 </div>
                 <div class="col-xs-6 col-lg-2">
                     <button class="btn btn-sortimo" ng-click="openRoleEditModal(role.name)">

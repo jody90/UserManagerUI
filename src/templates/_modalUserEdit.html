@@ -8,7 +8,7 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-xs-6">
+                    <div class="col-xs-12 col-sm-6">
                         <div class="form-group">
                             <label for="username">Benutzername</label>
                             <input class="form-control" type="text" name="username" ng-model="user.username">
@@ -18,7 +18,7 @@
                             <input class="form-control" type="text" name="email" ng-model="user.email">
                         </div>
                     </div>
-                    <div class="col-xs-6">
+                    <div class="col-xs-12 col-sm-6">
                         <div class="form-group">
                             <label for="firstname">Vorname</label>
                             <input class="form-control" type="text" name="firstname" ng-model="user.firstname">
@@ -31,7 +31,7 @@
                 </div>
 
                 <div class="row margin-bottom-lg">
-                    <div class="col-xs-6">
+                    <div class="col-xs-12 col-sm-6">
                         <strong>Rollen inaktiv</strong>
                         <div class="possible-roles-container">
                             <div ng-repeat="role in possibleRoles" class="add-remove-item">
@@ -42,7 +42,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xs-6">
+                    <div class="col-xs-12 col-sm-6">
                         <strong>Rollen aktiv</strong>
                         <div class="active-roles-container">
                             <div ng-repeat="role in user.roles" class="add-remove-item">
@@ -56,7 +56,7 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-xs-6">
+                    <div class="col-xs-12 col-sm-6">
                         <strong>Rechte inaktiv</strong>
                         <div class="possible-rights-container">
                             <div ng-repeat="right in possibleRights" class="add-remove-item">
@@ -67,7 +67,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xs-6">
+                    <div class="col-xs-12 col-sm-6">
                         <strong>Rechte aktiv</strong>
                         <div class="active-rights-container">
                             <div ng-repeat="right in user.rights" class="add-remove-item">
