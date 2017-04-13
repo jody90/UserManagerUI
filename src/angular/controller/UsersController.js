@@ -29,6 +29,19 @@ function($scope, $rootScope, $q, UsersService, ModalService, UserModel) {
             })
             .then(function(modal) {
                 modal.element.modal();
+                modal.close.then(function(closeParams) {
+                    if (closeParams.oldUser === undefined) {
+                        $scope.users.push(closeParams.user)
+                    }
+                    else {
+                        for (var i = 0; i < $scope.users.length; i++) {
+                            if ($scope.users[i].username === closeParams.oldUser) {
+                                $scope.users.splice(i, 1);
+                                $scope.users.push(closeParams.user);
+                            }
+                        }
+                    }
+                })
             });
         };
 

@@ -1,5 +1,5 @@
-myApp.controller('ModalUserEditController', ['$scope', '$q', 'username', 'UserService', 'RightService', 'RoleService',
-function($scope, $q, username, UserService, RightService, RoleService) {
+myApp.controller('ModalUserEditController', ['$scope', '$q', 'close', 'username', 'UserService', 'RightService', 'RoleService',
+function($scope, $q, close, username, UserService, RightService, RoleService) {
 
     var userService = new UserService();
     var roleService = new RoleService();
@@ -108,12 +108,56 @@ function($scope, $q, username, UserService, RightService, RoleService) {
         }
     }
 
-    $scope.save = function() {
-        if (username == null) {
-            userService.addUser($scope.user);
+    var notNull = function(data, type) {
+
+        if (data == null) {
+            showNotification(type + ": ist leer!", "error", "Fehler", 2000);
+            return false;
         }
-        else {
-            userService.updateUser($scope.user);
+
+        if (data.trim() == "") {
+            showNotification(type + ": ist leer!", "error", "Fehler", 2000);
+            return false;
+        }
+
+        return true;
+
+    }
+
+    $scope.save = function() {
+
+        if (notNull($scope.user.username, "Benutzername") && notNull($scope.user.firstname, "Vorname") && notNull($scope.user.lastname, "Nachname") && notNull($scope.user.email, "Email")) {
+            if (username == null) {
+                userService.addUser($scope.user)
+                .then(function(response) {
+                    var tUser = response.data;
+                    var closeParams = {
+                        oldUser : undefined,
+                        user : tUser
+                    }
+                    showNotification("Der Benutzer [" + tUser.username + "] wurde erfolgreich angelegt.", "success", "Neuer Benutzer", 4000);
+                    close(closeParams);
+                })
+                .catch(function(response) {
+                    console.error("UserNew ERROR: ", response);
+                });
+            }
+            else {
+                userService.updateUser($scope.user, username)
+                .then(function(response) {
+                    var tUser = response.data
+                    var tUsername = tUser.username === username ? undefined : username;
+                    var closeParams = {
+                        oldUser : tUsername,
+                        user : tUser
+                    }
+                    showNotification("Der Benutzer [" + tUser.username + "] wurde erfolgreich aktualisiert.", "success", "Benutzer aktualisiert", 4000);
+                    close(closeParams, 200);
+                })
+                .catch(function(response) {
+                    console.error("UserNew ERROR: ", response);
+                });
+            }
         }
     }
 

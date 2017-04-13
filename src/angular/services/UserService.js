@@ -94,13 +94,13 @@ function(MyException, $q, $http, $rootScope, UserModel, UserPreviewModel) {
         return defer.promise;
     }
 
-    UserService.prototype.updateUser = function(user) {
+    UserService.prototype.updateUser = function(user, username) {
 
         var defer = $q.defer();
 
         $http({
             method: 'PUT',
-            url: 'http://localhost:51001/api/user/' + user.username,
+            url: 'http://localhost:51001/api/user/' + username,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': $rootScope.token.value
@@ -116,94 +116,6 @@ function(MyException, $q, $http, $rootScope, UserModel, UserPreviewModel) {
 
         return defer.promise;
     }
-
-    // UserService.prototype.addUserRole = function(username, roleName) {
-    //
-    //     var defer = $q.defer();
-    //
-    //     $http({
-    //         method: 'PUT',
-    //         url: 'http://localhost:51001/api/user/' + username + '/role/' + roleName,
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             'Authorization': $rootScope.token.value
-    //         }
-    //     })
-    //     .then(function successCallback(response) {
-    //         defer.resolve(response);
-    //     }, function errorCallback(response) {
-    //         console.log("addUserRole errorCallback: ", response);
-    //         defer.reject(response);
-    //     });
-    //
-    //     return defer.promise;
-    // }
-    //
-    // UserService.prototype.removeUserRole = function(username, roleName) {
-    //
-    //     var defer = $q.defer();
-    //
-    //     $http({
-    //         method: 'DELETE',
-    //         url: 'http://localhost:51001/api/user/' + username + '/role/' + roleName,
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             'Authorization': $rootScope.token.value
-    //         }
-    //     })
-    //     .then(function successCallback(response) {
-    //         defer.resolve(response);
-    //     }, function errorCallback(response) {
-    //         console.log("removeUserRole errorCallback: ", response);
-    //         defer.reject(response);
-    //     });
-    //
-    //     return defer.promise;
-    // }
-    //
-    // UserService.prototype.addUserRight = function(username, rightName) {
-    //
-    //     var defer = $q.defer();
-    //
-    //     $http({
-    //         method: 'PUT',
-    //         url: 'http://localhost:51001/api/user/' + username + '/right/' + rightName,
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             'Authorization': $rootScope.token.value
-    //         }
-    //     })
-    //     .then(function successCallback(response) {
-    //         defer.resolve(response);
-    //     }, function errorCallback(response) {
-    //         console.log("addUserRight errorCallback: ", response);
-    //         defer.reject(response);
-    //     });
-    //
-    //     return defer.promise;
-    // }
-    //
-    // UserService.prototype.removeUserRight = function(username, rightName) {
-    //
-    //     var defer = $q.defer();
-    //
-    //     $http({
-    //         method: 'DELETE',
-    //         url: 'http://localhost:51001/api/user/' + username + '/right/' + rightName,
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             'Authorization': $rootScope.token.value
-    //         }
-    //     })
-    //     .then(function successCallback(response) {
-    //         defer.resolve(response);
-    //     }, function errorCallback(response) {
-    //         console.log("removeUserRight errorCallback: ", response);
-    //         defer.reject(response);
-    //     });
-    //
-    //     return defer.promise;
-    // }
 
     return UserService;
 
